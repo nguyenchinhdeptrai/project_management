@@ -1,0 +1,7 @@
+- màu chủ đạo: FDFBF8 và trắng F0000
+ + mã màu: #FDFBF8
+ menu điều hướng có 4 phần
+ 1. home: danh sách thành viên, sách đang có( có cả số lượng ,  có chức năng mượn sách, khi mượn sách thì sẽ xuất ra phiếu mượn )  ở thư viện, sách đã về,
+ 2. sách: CRUD sách và loại sách
+ 3. phiếu mượn: xem được danh sách phiếu mượn, có thể đánh tích đang mượn hoặc đã trả 
+ 4. thông tin: gồm có: tên, ảnh, trạng thái(quản lý hay thủ thư) bên dưới gồm có: thống kê, thay đổi thông tin, đổi mật khẩu , đăng xuất 
