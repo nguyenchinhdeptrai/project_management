@@ -1,23 +1,26 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react';
-const Login = ({navigation}) => {
+import React from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+const ChangePass = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Image source={require('../../assets/logoapp.png')} style={styles.logo} />
+            <Text style={styles.textChangePass}>Quên mật khẩu</Text>
             <View style={styles.viewFromLogin}>
                 <View style={styles.viewTextinput}>
-                    <Text style={{color:'gray'}}>Tên đăng nhập</Text>
+                    <Text style={{ color: 'gray' }}>Điền tên đăng nhâp của bạn</Text>
                     <TextInput placeholder='' style={styles.textInput} />
                 </View>
-                <View style={styles.viewTextinput}>
-                    <Text style={{color:'gray'}}>Mật khẩu</Text>
-                    <TextInput placeholder='' style={styles.textInput} />
+                <View style={styles.viewGoBackLogin}>
+                    <Icon name="arrow-left" size={15} color="gray" style={{ paddingRight: 5, paddingTop: 3 }} />
+                    <Text onPress={() => navigation.navigate('Login')}>Quay về trang đăng nhập</Text>
                 </View>
-                <Text style={styles.textForgotpassword} onPress={()=>navigation.navigate('ChangePass')}>Quên mật khẩu</Text>
+
             </View>
             <View style={styles.viewButtonLogin} >
-                <TouchableOpacity style={styles.btnLogin}>
-                    <Text style={{ color: 'white', fontSize: 15 }}>Đăng Nhập</Text>
+                <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate('ChangePass2')}>
+                    <Text style={{ color: 'white', fontSize: 15 }}>Tìm Kiếm</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.viewFooter}>
@@ -27,30 +30,37 @@ const Login = ({navigation}) => {
                     <View style={{ borderBottomColor: 'black', borderBottomWidth: 1, flex: 1 }} />
                 </View>
             </View>
-
         </View>
     )
 }
 
-export default Login
+export default ChangePass
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FDFBF8',
         alignItems: 'center',
+        backgroundColor: '#FDFBF8',
+    }, textChangePass: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#6E6C6C'
     }, viewFromLogin: {
         flex: 5,
         width: '100%',
+        marginTop: 30,
     }, viewFooter: {
         flex: 1,
         width: '55%',
-        marginTop:12,
+        marginTop: 12,
     }, viewTextinput: {
         marginHorizontal: 30,
         marginBottom: 20,
     }, viewButtonLogin: {
         flex: 1,
+    }, viewGoBackLogin: {
+        marginLeft: '50%',
+        flexDirection: 'row'
     }, logo: {
         width: 250,
         height: 250
@@ -60,10 +70,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: "white",
         height: 40,
-        padding:10,
-    }, textForgotpassword: {
-        marginLeft: '68%',
-        color:'gray'
+        padding: 10,
     }, btnLogin: {
         width: 250,
         height: 50,
@@ -72,6 +79,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 12,
     },
-
-
 })
