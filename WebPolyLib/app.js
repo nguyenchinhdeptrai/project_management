@@ -13,12 +13,21 @@ app.engine('.hbs', expressHbs.engine({ extname: 'hbs', defaultLayout: 'login', l
 
 app.set('view engine', '.hbs');
 app.set('views', './views/layouts');
+//router
+const routerMember = require('./router/member');
+app.use('/',routerMember);
 
 app.get('/', (req, res) => {
     res.render('login', {
         layout: "main",
     });
 })
+//post
+app.post('/auth/login', (req, res) => {
+    res.render('home', {
+        layout:"main",
+    });
+});
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 });
