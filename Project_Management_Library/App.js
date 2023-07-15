@@ -6,10 +6,24 @@ import Login from './Comp/LoginandChangePass/Login';
 import Splashscreen from './Comp/LoginandChangePass/Splashscreen';
 import ChangePass from './Comp/LoginandChangePass/ChangePass';
 import ChangePass2 from './Comp/LoginandChangePass/ChangePass2';
-
 const Stack = createNativeStackNavigator();
-
+import { StyleSheet, Text, View, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+const URL = 'http://localhost:3000';
 export default function App() {
+
+  const [state, setstate] = useState([]);
+
+
+  const getData = () => {
+    fetch(`${URL}`)
+      .then((response) => response.json())
+      .then((response) => {
+        console.log("RESPONSE: " + response);
+      })
+      .catch((error) => console.log("ERROR: " + error));
+  };
+
   return (
     <NavigationContainer >
       <Stack.Navigator initialRouteName='Splashscreen'>
