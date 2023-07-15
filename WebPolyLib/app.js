@@ -14,6 +14,9 @@ app.engine('.hbs', expressHbs.engine({ extname: 'hbs', defaultLayout: 'login', l
 
 app.set('view engine', '.hbs');
 app.set('views', './views/layouts');
+//router
+const routerMember = require('./router/member');
+app.use('/',routerMember);
 
 app.get('/', (req, res) => {
     res.redirect('/home');
@@ -24,6 +27,7 @@ app.get('/login', (req, res) => {
         layout: "main",
     });
 })
+
 
 app.post('/login', (req, res) => {
     const { userName, password } = req.body;
