@@ -11,63 +11,95 @@
             </label>
             <hr>
             {{!-- Trang chủ --}}
-            <div class="dropdown d-flex justify-content-center mt-5 mb-5">
+            <div class="d-flex mt-5 mb-5 mx-5">
                 <button class="btn btn-secondary">
                     <label style="margin-right: 130px; margin-left: 16px;">
                         <a href="#" class="text-decoration-none text-reset">Trang chủ</a>
                     </label>
                 </button>
             </div>
-            {{!-- Dropdown Sách --}}
-            <div class="dropdown d-flex justify-content-center mt-5 mb-5">
-                <button class="btn btn-secondary dropdown-toggle " data-bs-toggle="dropdown">
-                    <label style="margin-right: 150px; margin-left: 16px;">
+            {{!-- Collapse Sách --}}
+            <div class=" mt-5 mb-5 mx-5 ">
+                <button class="btn btn-secondary d-inline-flex align-items-center rounded collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#book" aria-expanded="false"
+                    aria-controls="book">
+                    <label style="margin-right: 165px; margin-left: 16px;">
                         Sách
                     </label>
                 </button>
-                <ul class="dropdown-menu">
-                    <li><a style="margin-right: 100px;" class="dropdown-item" href="#">Thêm Sách</a></li>
-                    <li><a style="margin-right: 100px;" class="dropdown-item" href="#">Danh sách Sách</a></li>
-                </ul>
+                <div class="collapse" id="book">
+                    <ul class="list-group list-unstyled fw-normal pb-1 small">
+                        <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                href="#">Thêm
+                                Sách</a></li>
+                        <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                href="#">Danh sách Sách</a></li>
+                    </ul>
+                </div>
+
             </div>
-            {{!-- Dropdown Thành viên --}}
-            <div class="dropdown d-flex justify-content-center mt-5 mb-5">
-                <button class="btn btn-secondary dropdown-toggle " data-bs-toggle="dropdown">
-                    <label style="margin-right: 103px; margin-left: 16px;">
+            {{!-- Collapse Thành viên --}}
+            <div class=" mt-5 mb-5 mx-5 ">
+                <button class="btn btn-secondary d-inline-flex align-items-center rounded collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#member" aria-expanded="false"
+                    aria-controls="member">
+                    <label style="margin-right: 120px; margin-left: 16px;">
                         Thành Viên
                     </label>
                 </button>
-                <ul class="dropdown-menu">
-                    <li><a style="margin-right: 50px;" class="dropdown-item" href="#">Thêm Thành Viên</a></li>
-                    <li><a style="margin-right: 50px;" class="dropdown-item" href="#">Danh sách Thành Viên</a></li>
-                </ul>
+                <div class="collapse" id="member">
+                    <ul class="list-group list-unstyled fw-normal pb-1 small">
+                        <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                href="#">Thêm
+                                Thành Viên</a></li>
+                        <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                href="#">Danh sách Thành Viên</a></li>
+                    </ul>
+                </div>
+
             </div>
-            {{!-- Dropdown Loại sách --}}
-            <div class="dropdown d-flex justify-content-center mt-5 mb-5">
-                <button class="btn btn-secondary dropdown-toggle " data-bs-toggle="dropdown">
-                    <label style="margin-right: 115px; margin-left: 16px;">
+            {{!-- Collapse Loại sách --}}
+            <div class=" mt-5 mb-5 mx-5 ">
+                <button class="btn btn-secondary d-inline-flex align-items-center rounded collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#typeBook" aria-expanded="false"
+                    aria-controls="typeBook">
+                    <label style="margin-right: 130px; margin-left: 16px;">
                         Loại Sách
                     </label>
                 </button>
-                <ul class="dropdown-menu">
-                    <li><a style="margin-right: 60px;" class="dropdown-item" href="#">Thêm Loại Sách</a></li>
-                    <li><a style="margin-right: 60px;" class="dropdown-item" href="#">Danh sách Loại Sách</a></li>
-                </ul>
+                <div class="collapse" id="typeBook">
+                    <ul class="list-group list-unstyled fw-normal pb-1 small">
+                        <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                href="#">Thêm
+                                Loại Sách</a></li>
+                        <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                href="#">Danh sách Loại Sách</a></li>
+                    </ul>
+                </div>
+
             </div>
-            {{!-- Dropdown Thủ thư --}}
-            <div class="dropdown d-flex justify-content-center mt-5 mb-5">
-                <button class="btn btn-secondary dropdown-toggle " data-bs-toggle="dropdown">
-                    <label style="margin-right: 122px; margin-left: 16px;">
+            {{!-- Collapse Thủ thư --}}
+            <div class=" mt-5 mb-5 mx-5 ">
+                <button class="btn btn-secondary d-inline-flex align-items-center rounded collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#user" aria-expanded="false"
+                    aria-controls="user">
+                    <label style="margin-right: 140px; margin-left: 16px;">
                         Thủ Thư
                     </label>
                 </button>
-                <ul class="dropdown-menu">
-                    <li><a style="margin-right: 70px;" class="dropdown-item" href="#">Thêm Thủ Thư</a></li>
-                    <li><a style="margin-right: 70px;" class="dropdown-item" href="#">Danh sách Thủ Thư</a></li>
-                </ul>
+                <div class="collapse" id="user">
+                    <ul class="list-group list-unstyled fw-normal pb-1 small">
+                        <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                href="#">Thêm
+                                Thủ Thư</a></li>
+                        <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                href="#">Danh sách Thủ Thư</a></li>
+                    </ul>
+                </div>
+
             </div>
             {{!-- Phiếu mượn --}}
-            <div class="dropdown d-flex justify-content-center mt-5 mb-5">
+            <div class="d-flex mt-5 mb-5 mx-5">
                 <button class="btn btn-secondary">
                     <label style="margin-right: 115px; margin-left: 16px;">
                         <a href="#" class="text-decoration-none text-reset">Phiếu mượn</a>
