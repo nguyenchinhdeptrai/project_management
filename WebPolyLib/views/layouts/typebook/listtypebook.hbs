@@ -1,0 +1,206 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2 bg-light">
+            <div style="background-color: #FDFBF8; ">
+                <div class="" style="background-color: #FFFFFF; height: 800px;">
+                    <a href="/home" class="text-decoration-none">
+                        <h5 class="px-5 pt-4 pb-5" style="color: #109CF1;">PolyLibrary</h5>
+                    </a>
+
+                    <div>
+                        <img class="img-thumbnail rounded-circle ms-5 mb-4" style="width: 70px; height: 70px;"
+                            src="../../images/logo.png" alt="" srcset="">
+                        <label class="labe  mx-3">
+                            <h6>Admin</h6>
+                            <p style="color:gray;">admin@gmail.com</p>
+                        </label>
+                        <hr>
+                        {{!-- Trang chủ --}}
+                        <div class="d-flex mt-5 mb-5 mx-5">
+                            <button class="btn btn-secondary">
+                                <label style="margin-right: 130px; margin-left: 16px;">
+                                    <a href="#" class="text-decoration-none text-reset">Trang chủ</a>
+                                </label>
+                            </button>
+                        </div>
+                        {{!-- Collapse Sách --}}
+                        <div class=" mt-5 mb-5 mx-5 ">
+                            <button class="btn btn-secondary d-inline-flex align-items-center rounded collapsed"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#book" aria-expanded="false"
+                                aria-controls="book">
+                                <label style="margin-right: 165px; margin-left: 16px;">
+                                    Sách
+                                </label>
+                            </button>
+                            <div class="collapse" id="book">
+                                <ul class="list-group list-unstyled fw-normal pb-1 small">
+                                    <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                            href="/addbook">Thêm
+                                            Sách</a></li>
+                                    <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                            href="/book">Danh sách Sách</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        {{!-- Collapse Thành viên --}}
+                        <div class=" mt-5 mb-5 mx-5 ">
+                            <button class="btn btn-secondary d-inline-flex align-items-center rounded collapsed"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#member" aria-expanded="false"
+                                aria-controls="member">
+                                <label style="margin-right: 120px; margin-left: 16px;">
+                                    Thành Viên
+                                </label>
+                            </button>
+                            <div class="collapse" id="member">
+                                <ul class="list-group list-unstyled fw-normal pb-1 small">
+                                    <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                            href="/addmember">Thêm
+                                            Thành Viên</a></li>
+                                    <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                            href="/member">Danh sách Thành Viên</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        {{!-- Collapse Loại sách --}}
+                        <div class=" mt-5 mb-5 mx-5 ">
+                            <button class="btn btn-secondary d-inline-flex align-items-center rounded collapsed"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#typeBook" aria-expanded="false"
+                                aria-controls="typeBook">
+                                <label style="margin-right: 130px; margin-left: 16px;">
+                                    Loại Sách
+                                </label>
+                            </button>
+                            <div class="collapse" id="typeBook">
+                                <ul class="list-group list-unstyled fw-normal pb-1 small">
+                                    <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                            href="/typebook">Thêm
+                                            Loại Sách</a></li>
+                                    <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                            href="/addtypebook">Danh sách Loại Sách</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        {{!-- Collapse Thủ thư --}}
+                        <div class=" mt-5 mb-5 mx-5 ">
+                            <button class="btn btn-secondary d-inline-flex align-items-center rounded collapsed"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#user" aria-expanded="false"
+                                aria-controls="user">
+                                <label style="margin-right: 140px; margin-left: 16px;">
+                                    Thủ Thư
+                                </label>
+                            </button>
+                            <div class="collapse" id="user">
+                                <ul class="list-group list-unstyled fw-normal pb-1 small">
+                                    <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                            href="/adduser">Thêm
+                                            Thủ Thư</a></li>
+                                    <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
+                                            href="/user">Danh sách Thủ Thư</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        {{!-- Phiếu mượn --}}
+                        <div class="d-flex mt-5 mb-5 mx-5">
+                            <button class="btn btn-secondary">
+                                <label style="margin-right: 115px; margin-left: 16px;">
+                                    <a href="#" class="text-decoration-none text-reset">Phiếu mượn</a>
+
+                                </label>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-10 mt-5">
+            <div class="mt-2">
+                <Text style="color: #6B6B6B;
+                        font-size: 36px;
+                        font-family: Poppins;
+                        font-weight: 600;
+                        letter-spacing: 0.36px;
+                        word-wrap: break-word">Loại Sách Trong Thư Viện</Text>
+            </div>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Tìm Kiếm" aria-label="Search"
+                    style="height:60px;">
+            </form>
+            <table class="table table-hover mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col">Tên loại sách</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Tùy chọn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">Ngữ văn 12</td>
+                        <td>10</td>
+                        <td>
+                            <div class="d-grid gap-2 d-md-block">
+                                <button class="btn btn-primary" type="button">Sửa</button>
+                                <button class="btn btn-danger" type="button">Xóa</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">Ngữ văn 12</td>
+                        <td>10</td>
+                        <td>
+                            <div class="d-grid gap-2 d-md-block">
+                                <button class="btn btn-primary" type="button">Sửa</button>
+                                <button class="btn btn-danger" type="button">Xóa</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">Ngữ văn 12</td>
+                        <td>10</td>
+                        <td>
+                            <div class="d-grid gap-2 d-md-block">
+                                <button class="btn btn-primary "
+                                    onclick="window.location.href='/updatetypebook/'">Sửa</button>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Xóa
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Xóa loại sách</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Bạn có muốn xóa loại sách này đi không
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Không</button>
+                                                <button type="button" class="btn btn-danger"
+                                                    data-bs-dismiss="modal">Có</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
