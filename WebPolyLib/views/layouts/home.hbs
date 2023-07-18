@@ -1,6 +1,8 @@
 <div style="background-color: #FDFBF8; ">
     <div class="" style="background-color: #FFFFFF; width: 25%; height: 800px;">
-        <h5 class="px-5 pt-4 pb-5" style="color: #109CF1;">PolyLibrary</h5>
+        <a href="/home" class="text-decoration-none">
+            <h5 class="px-5 pt-4 pb-5" style="color: #109CF1;">PolyLibrary</h5>
+        </a>
 
         <div>
             <img class="img-thumbnail rounded-circle ms-5 mb-4" style="width: 70px; height: 70px;"
@@ -21,8 +23,7 @@
             {{!-- Collapse Sách --}}
             <div class=" mt-5 mb-5 mx-5 ">
                 <button class="btn btn-secondary d-inline-flex align-items-center rounded collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#book" aria-expanded="false"
-                    aria-controls="book">
+                    data-bs-toggle="collapse" data-bs-target="#book" aria-expanded="false" aria-controls="book">
                     <label style="margin-right: 165px; margin-left: 16px;">
                         Sách
                     </label>
@@ -30,10 +31,10 @@
                 <div class="collapse" id="book">
                     <ul class="list-group list-unstyled fw-normal pb-1 small">
                         <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
-                                href="#">Thêm
+                                href="/addbook">Thêm
                                 Sách</a></li>
                         <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
-                                href="#">Danh sách Sách</a></li>
+                                href="/book">Danh sách Sách</a></li>
                     </ul>
                 </div>
 
@@ -41,8 +42,7 @@
             {{!-- Collapse Thành viên --}}
             <div class=" mt-5 mb-5 mx-5 ">
                 <button class="btn btn-secondary d-inline-flex align-items-center rounded collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#member" aria-expanded="false"
-                    aria-controls="member">
+                    data-bs-toggle="collapse" data-bs-target="#member" aria-expanded="false" aria-controls="member">
                     <label style="margin-right: 120px; margin-left: 16px;">
                         Thành Viên
                     </label>
@@ -50,10 +50,10 @@
                 <div class="collapse" id="member">
                     <ul class="list-group list-unstyled fw-normal pb-1 small">
                         <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
-                                href="#">Thêm
+                                href="/addmember">Thêm
                                 Thành Viên</a></li>
                         <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
-                                href="#">Danh sách Thành Viên</a></li>
+                                href="/member">Danh sách Thành Viên</a></li>
                     </ul>
                 </div>
 
@@ -61,8 +61,7 @@
             {{!-- Collapse Loại sách --}}
             <div class=" mt-5 mb-5 mx-5 ">
                 <button class="btn btn-secondary d-inline-flex align-items-center rounded collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#typeBook" aria-expanded="false"
-                    aria-controls="typeBook">
+                    data-bs-toggle="collapse" data-bs-target="#typeBook" aria-expanded="false" aria-controls="typeBook">
                     <label style="margin-right: 130px; margin-left: 16px;">
                         Loại Sách
                     </label>
@@ -70,10 +69,10 @@
                 <div class="collapse" id="typeBook">
                     <ul class="list-group list-unstyled fw-normal pb-1 small">
                         <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
-                                href="#">Thêm
+                                href="/typebook">Thêm
                                 Loại Sách</a></li>
                         <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
-                                href="#">Danh sách Loại Sách</a></li>
+                                href="/addtypebook">Danh sách Loại Sách</a></li>
                     </ul>
                 </div>
 
@@ -81,8 +80,7 @@
             {{!-- Collapse Thủ thư --}}
             <div class=" mt-5 mb-5 mx-5 ">
                 <button class="btn btn-secondary d-inline-flex align-items-center rounded collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#user" aria-expanded="false"
-                    aria-controls="user">
+                    data-bs-toggle="collapse" data-bs-target="#user" aria-expanded="false" aria-controls="user">
                     <label style="margin-right: 140px; margin-left: 16px;">
                         Thủ Thư
                     </label>
@@ -90,10 +88,10 @@
                 <div class="collapse" id="user">
                     <ul class="list-group list-unstyled fw-normal pb-1 small">
                         <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
-                                href="#">Thêm
+                                href="/adduser">Thêm
                                 Thủ Thư</a></li>
                         <li><a style="margin-right: 45px;" class="btn list-group-item text-decoration-none"
-                                href="#">Danh sách Thủ Thư</a></li>
+                                href="/user">Danh sách Thủ Thư</a></li>
                     </ul>
                 </div>
 

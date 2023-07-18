@@ -2,21 +2,21 @@ const express = require("express");
 const router = express.Router();
 const app = express();
 
-//list members
-router.get('/member', (req, res) => {
-    res.render('member/listmember', {
+//list book
+router.get('/book', (req, res) => {
+    res.render('book/listbook', {
         layout: "main",
     });
 })
 //add members
-router.get('/addmember', (req, res) => {
-    res.render('member/addmember', {
+router.get('/addbook', (req, res) => {
+    res.render('book/addbook', {
         layout:'main',
     });
 });
 //update members
-router.get('/updatemember', (req, res) => {
-    res.render('member/updatemember',{
+router.get('/updatebook', (req, res) => {
+    res.render('book/updatebook',{
         layout:'main',
     });
 });

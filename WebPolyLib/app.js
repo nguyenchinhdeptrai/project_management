@@ -17,6 +17,16 @@ app.set('views', './views/layouts');
 //router
 const routerMember = require('./router/member');
 app.use('/',routerMember);
+//user
+const routerUser = require('./router/user');
+app.use('/', routerUser);
+//book
+const routerBook = require('./router/book');
+app.use('/', routerBook);
+//typebook
+const routerTypeBook = require('./router/typebook');
+app.use('/', routerTypeBook);
+
 
 app.get('/', (req, res) => {
     res.redirect('/home');
