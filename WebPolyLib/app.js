@@ -18,17 +18,18 @@ app.set('view engine', '.hbs');
 app.set('views', './views/layouts');
 //router
 const routerMember = require('./router/member.route');
-app.use('/',routerMember);
-//user
-const routerUser = require('./router/user');
-app.use('/', routerUser);
+app.use('/', routerMember);
 //book
-const routerBook = require('./router/book');
+const routerBook = require('./router/book.router');
 app.use('/', routerBook);
 //typebook
-const routerTypeBook = require('./router/typebook');
-app.use('/', routerTypeBook);
-
+const routerTypebook = require('./router/typebook.router');
+app.use('/', routerTypebook)
+//user
+const routerUser = require('./router/user.router');
+app.use('/', routerUser);
+const routerLoanSlip = require('./router/loanslip.router');
+app.use('/', routerLoanSlip);
 
 app.get('/', (req, res) => {
     res.redirect('/home');

@@ -1,5 +1,4 @@
-<div class="container-fluid">
-    <div class="row">
+<div class="container-fluid row">
     <div class="col-sm-3">
         <div style="background-color: #FFFFFF; height: 100%;">
             <a href="/home" class="text-decoration-none">
@@ -117,94 +116,93 @@
             </nav>
         </div>
     </div>
-        <div class="col-sm-9 mt-5">
-            <div class="mt-2">
-                <Text style="color: #6B6B6B;
+    <div class="col-sm-9 mt-5">
+        <div class="mt-2">
+            <Text style="color: #6B6B6B;
                         font-size: 36px;
                         font-family: Poppins;
                         font-weight: 600;
                         letter-spacing: 0.36px;
-                        word-wrap: break-word">Sách Trong Thư Viện</Text>
-            </div>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Tìm Kiếm" aria-label="Search"
-                    style="height:60px;">
-            </form>
-            <table class="table table-hover mt-3">
-                <thead>
-                    <tr>
-                        <th scope="col">Tên Sách</th>
-                        <th scope="col">Loại Sách</th>
-                        <th scope="col">Số Lượng</th>
-                        <th scope="col">Tùy chọn</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td scope="row">Ngữ văn 12</td>
-                        <td>Giáo dục</td>
-                        <td>10</td>
-                        <td>
-                            <div class="d-grid gap-2 d-md-block">
-                                <button class="btn btn-primary" type="button">Sửa</button>
-                                <button class="btn btn-danger" type="button">Xóa</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">Ngữ văn 12</td>
-                        <td>Giáo dục</td>
-                        <td>10</td>
-                        <td>
-                            <div class="d-grid gap-2 d-md-block">
-                                <button class="btn btn-primary" type="button">Sửa</button>
-                                <button class="btn btn-danger" type="button">Xóa</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">Ngữ văn 12</td>
-                        <td>Giáo dục</td>
-                        <td>10</td>
-                        <td>
-                            <div class="d-grid gap-2 d-md-block">
-                                <button class="btn btn-primary "
-                                    onclick="window.location.href='/updatebook/'">Sửa</button>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    Xóa
-                                </button>
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Xóa người dùng</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Bạn có muốn xóa sách này đi không
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Không</button>
-                                                <button type="button" class="btn btn-danger"
-                                                    data-bs-dismiss="modal">Có</button>
-                                            </div>
+                        word-wrap: break-word">Danh sách phiếu mượn</Text>
+        </div>
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Tìm Kiếm" aria-label="Search"
+                style="height:60px;">
+        </form>
+        <table class="table table-hover mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">Thủ thư</th>
+                    <th scope="col">Người mượn</th>
+                    <th scope="col">Tên sách</th>
+                    <th scope="col">Tùy chọn</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Nguyễn Văn A</td>
+                    <td>Nguyễn Văn B</td>
+                    <td>Ngữ văn 12</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-block">
+                            <button class="btn btn-primary" type="button">Xem chi tiết</button>
+                            <button class="btn btn-danger" type="button">Xóa</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Nguyễn Văn A</td>
+                    <td>Nguyễn Văn B</td>
+                    <td>Ngữ văn 12</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-block">
+                            <button class="btn btn-primary" type="button">Xem chi tiết</button>
+                            <button class="btn btn-danger" type="button">Xóa</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Nguyễn Văn A</td>
+                    <td>Nguyễn Văn B</td>
+                    <td>Ngữ văn 12</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-block">
+                            <button class="btn btn-primary " onclick="window.location.href='/infomation/'">Xem chi
+                                tiết</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Xóa
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Xóa phiếu mượn</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Bạn có muốn xóa phiếu mượn này đi không
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Không</button>
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Có</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                        </td>
-                    </tr>
+                    </td>
+                </tr>
 
-                </tbody>
-            </table>
+            </tbody>
+        </table>
 
 
-        </div>
     </div>
 </div>
