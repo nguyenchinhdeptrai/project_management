@@ -31,6 +31,12 @@ app.use('/', routerUser);
 const routerLoanSlip = require('./router/loanslip.router');
 app.use('/', routerLoanSlip);
 
+// api
+const routerApiBook = require('./router/routerAPI/book.router');
+app.use('/api', routerApiBook);
+const routerApiTypeBook = require('./router/routerAPI/typebook.router');
+app.use('/api', routerApiTypeBook);
+
 app.get('/', (req, res) => {
     res.redirect('/home');
 })
@@ -61,6 +67,7 @@ app.get('/home', (req, res) => {
         layout: "main",
     });
 })
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 });
