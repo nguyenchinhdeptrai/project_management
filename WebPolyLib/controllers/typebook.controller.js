@@ -1,27 +1,28 @@
 const mongoose = require('mongoose');
-const typeBookModel = require('../model/typeBookModel');
+const md = require('../model/modeltypebook');
 const uri = 'mongodb+srv://phungchikien196:Qa4168ciXnRnjV9G@apppolylib.5gjczzc.mongodb.net/PolyLib?retryWrites=true&w=majority';
 mongoose.connect(uri);
 console.log("Kết nối DB thành công");
 
 
-exports.listType = (req, res) => {
+exports.listType = async (req, res) => {
+    let arrTypeBook = await md.find().lean();
 
     res.render('typebook/listtypebook', {
-        layout: 'main'
+        layout: 'main',
+        data: arrTypeBook
     })
 }
 
 exports.addType = async (req, res) => {
-    let arrTypeBook = await typeBookModel.find().lean();
 
-    const { nametypebook } = req.body;
-    var newStt = arrTypeBook[arrTypeBook.length - 1].stt + 1;
-    let objTypeBook = { stt: newStt, nametypebook: nametypebook };
-    if (!nametypebook) {
+
+    const { name } = req.body;
+    let objTypeBook = { name: name };
+    if (!name) {
         console.log("lỗi");
     } else {
-        let kq = await typeBookModel.insertMany(objTypeBook);
+        let kq = await md.insertMany(objTypeBook);
         res.redirect('/typeBook');
         console.log(kq);
 
@@ -30,8 +31,38 @@ exports.addType = async (req, res) => {
         layout: 'main'
     })
 }
-exports.updateType = (req, res) => {
+exports.updateType = async (req, res) => {
+    let arrTypeBook = await md.find({ _id: getId }).lean();
+
+    const { name } = req.body;
+    let objTypeBook = { name: name };
+
+    if (!name) {
+        console.log("lỗi");
+    } else {
+        let kq = await md.updateOne({ _id: getId }, objTypeBook);
+        res.redirect('/typeBook');
+        console.log(kq);    
+    }
     res.render('typebook/updatetype', {
-        layout: 'main'
+        layout: 'main',
+        data: arrTypeBook
     })
+}
+//Lấy id
+var getId;
+exports.getId = (req, res) => {
+    const { _id } = req.body;
+    getId = _id;
+    console.log("Lấy Id thành công");
+    res.redirect('/updatetypebook');
+    return;
+}
+
+exports.deleteType = async (req, res) => {
+    const { id } = req.body;
+    await md.deleteOne({ _id: id});
+    console.log("Xóa thành công");
+    res.redirect('/typeBook');
+    return;
 }

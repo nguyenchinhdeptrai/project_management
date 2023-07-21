@@ -9,21 +9,22 @@
     </div>
     <div class="row mt-3 rounded-3 d-flex justify-content-center m-5" style="height: 800px; background-color: #F5F6F8;">
         <div class="row">
-            <form>
+            <form action="/updatetypebook" method="POST">
+                {{#each data}}
                 <div class="mb-3">
                     <div class="row">
                         <label for="exampleInputEmail1" class="form-label">Tên thể loại <span
                                 class="text-danger">*</span></label>
                     </div>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        value="Truyện tranh">
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        value="{{this.name}}">
                 </div>
                 <div class="d-flex justify-content-center align-items-center">
                     <button class="btn p-2" type="submit"
                         style="background-color: #8C2100; color: white; width: 400px;height: 50px;">Sửa loại
                         sách</button>
                 </div>
-
+                {{/each}}
             </form>
         </div>
     </div>

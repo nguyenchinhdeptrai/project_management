@@ -12,43 +12,34 @@
     </form>
     <table class="table table-hover mt-3">
         <thead>
-            <tr>
+            <tr class="text-center">
+                <th scope="col">STT</th>
                 <th scope="col">Tên loại sách</th>
-                <th scope="col">Số lượng</th>
                 <th scope="col">Tùy chọn</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td scope="row">Ngữ văn 12</td>
-                <td>10</td>
+            {{#each data}}
+            <tr class="text-center">
+                <td scope="row">{{@key}}</td>
+                <td>{{this.name}}</td>
+
                 <td>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary" type="button">Sửa</button>
-                        <button class="btn btn-danger" type="button">Xóa</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td scope="row">Ngữ văn 12</td>
-                <td>10</td>
-                <td>
-                    <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary" type="button">Sửa</button>
-                        <button class="btn btn-danger" type="button">Xóa</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td scope="row">Ngữ văn 12</td>
-                <td>10</td>
-                <td>
-                    <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary " onclick="window.location.href='/updatetypebook/'">Sửa</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
+                        <label for="">
+                            <form action="/getId" method="POST">
+                                <button class="btn btn-primary " onclick="window.location.href='/updatetypebook/'"
+                                    value="{{this._id}}" name="_id">Sửa</button>
+                            </form>
+                        </label>
+
+
+
+                        <button type="button" data-bs-whatever="{{this._id}}" data-bs-whatever2="{{this.name}}"
+                            class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Xóa
                         </button>
+
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
@@ -60,12 +51,17 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Bạn có muốn xóa loại sách này đi không
+                                        Bạn có muốn xóa loại sách này đi không? <br>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Không</button>
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Có</button>
+                                        <form action="/deletetypebook" method="POST">
+                                            <button type="submit" class="btn btn-danger"> <input style="display: none;"
+                                                    type="text" name="id">
+                                                Có</button>
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +70,27 @@
 
                 </td>
             </tr>
-
+            {{/each}}
         </tbody>
     </table>
 </div>
+
+<script>const exampleModal = document.getElementById('exampleModal')
+    exampleModal.addEventListener('show.bs.modal', event => {
+        // Button that triggered the modal
+        const button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        const recipient = button.getAttribute('data-bs-whatever')
+        const recipient2 = button.getAttribute('data-bs-whatever2')
+        // If necessary, you could initiate an Ajax request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+        const modalTitle = exampleModal.querySelector('.modal-title')
+        const modalBody = exampleModal.querySelector('.modal-body')
+        const modalFooterInput = exampleModal.querySelector('.modal-footer input')
+
+        modalTitle.textContent = `Bạn có chắc chắn muốn xóa?`
+        modalBody.textContent = `Sản phẩm xóa: ${recipient2}`
+        modalFooterInput.value = recipient
+    })</script>
