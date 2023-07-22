@@ -12,7 +12,7 @@
     </form>
     <table class="table table-hover mt-3">
         <thead>
-            <tr>
+            <tr class="text-center">
                 <th scope="col">Tên Sách</th>
                 <th scope="col">Loại Sách</th>
                 <th scope="col">Số Lượng</th>
@@ -20,56 +20,47 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td scope="row">Ngữ văn 12</td>
-                <td>Giáo dục</td>
-                <td>10</td>
+            {{#each data}}
+            <tr class="text-center">
+                <td scope="row">{{this.name}}</td>
+                <td>{{this._idType.name}}</td>
+                <td>{{this.count}}</td>
                 <td>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary" type="button">Sửa</button>
-                        <button class="btn btn-danger" type="button">Xóa</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td scope="row">Ngữ văn 12</td>
-                <td>Giáo dục</td>
-                <td>10</td>
-                <td>
-                    <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary" type="button">Sửa</button>
-                        <button class="btn btn-danger" type="button">Xóa</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td scope="row">Ngữ văn 12</td>
-                <td>Giáo dục</td>
-                <td>10</td>
-                <td>
-                    <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary " onclick="window.location.href='/updatebook/'">Sửa</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
+                        <label for="">
+                            <form action="/getIdBook" method="POST">
+                                <button class="btn btn-primary " onclick="window.location.href='/updatebook/'"
+                                    value="{{this._id}}" name="_id">Sửa</button>
+                            </form>
+                        </label>
+
+                        <button type="button" data-bs-whatever="{{this._id}}" data-bs-whatever2="{{this.name}}"
+                            class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Xóa
                         </button>
+
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Xóa người dùng</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Xóa loại sách</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Bạn có muốn xóa sách này đi không
+                                        Bạn có muốn xóa sách này đi không? <br>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Không</button>
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Có</button>
+                                        <form action="/deletebook" method="POST">
+                                            <button type="submit" class="btn btn-danger"> <input style="display: none;"
+                                                    type="text" name="id">
+                                                Có</button>
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +69,27 @@
 
                 </td>
             </tr>
-
+            {{/each}}
         </tbody>
     </table>
 </div>
+
+<script>const exampleModal = document.getElementById('exampleModal')
+    exampleModal.addEventListener('show.bs.modal', event => {
+        // Button that triggered the modal
+        const button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        const recipient = button.getAttribute('data-bs-whatever')
+        const recipient2 = button.getAttribute('data-bs-whatever2')
+        // If necessary, you could initiate an Ajax request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+        const modalTitle = exampleModal.querySelector('.modal-title')
+        const modalBody = exampleModal.querySelector('.modal-body')
+        const modalFooterInput = exampleModal.querySelector('.modal-footer input')
+
+        modalTitle.textContent = `Bạn có chắc chắn muốn xóa?`
+        modalBody.textContent = `Sách muốn xóa: ${recipient2}`
+        modalFooterInput.value = recipient
+    })</script>

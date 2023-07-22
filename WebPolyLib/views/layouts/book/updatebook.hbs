@@ -9,53 +9,53 @@
     </div>
     <div class="row mt-3 rounded-3 d-flex justify-content-center m-5" style="height: 800px; background-color: #F5F6F8;">
         <div class="row">
-            <form>
+            <form action="/updatebook" method="POST" enctype="multipart/form-data">
+                {{#each data}}
                 <div class="mb-3">
                     <div class="row">
                         <label for="exampleInputEmail1" class="form-label">Tên Sách <span
                                 class="text-danger">*</span></label>
                     </div>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        value="Ngữ văn 12">
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" value="{{this.name}}">
                 </div>
                 <div class="mb-3">
                     <div class="row">
                         <label for="exampleInputEmail1" class="form-label">Tác giả <span
                                 class="text-danger">*</span></label>
                     </div>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        value="Nguyễn Văn A">
+                    <input type="text" name="author" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" value="{{this.author}}">
                 </div>
                 <div class="mb-3">
                     <div class="row">
                         <label for="exampleInputEmail1" class="form-label">Năm sản xuất <span
                                 class="text-danger">*</span></label>
                     </div>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        value="2002">
+                    <input type="text" name="years" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" value="{{this.years}}">
                 </div>
                 <div class="mb-3">
                     <div class="row">
                         <label for="exampleInputEmail1" class="form-label">Số lượng<span
                                 class="text-danger">*</span></label>
                     </div>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        value="10">
+                    <input type="text" name="count" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" value="{{this.count}}">
                 </div>
                 <div class="mb-3">
                     <div class="row">
                         <label for="exampleInputEmail1" class="form-label">Thể loại<span class="text-danger"></span>
                             *</span></label>
-                        <div class="dropdown">
-                            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Thiếu nhi
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Văn học</a></li>
-                                <li><a class="dropdown-item" href="#">Thiếu nhi</a></li>
-                                <li><a class="dropdown-item" href="#">Trinh thám</a></li>
-                            </ul>
+                        {{!-- select item loaisp --}}
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Loại sách</label>
+                            <select class="form-select" name="selectType">
+                                <option value="{{this._idType}}">{{this._idType.name}}</option>
+                                {{#each ../dataTypeBook}}
+                                <option value="{{this._id}}">{{this.name}}</option>
+                                {{/each}}
+                            </select>
                         </div>
                     </div>
                     <div class="mt-3">
@@ -63,8 +63,16 @@
                             <label for="exampleInputEmail1" class="form-label">Ảnh <span
                                     class="text-danger">*</span></label>
                         </div>
-                        <div class="shadow-sm p-3 rounded" style="width: 100px;">
-                            <img src="../../images/z4518521918846_a158c9fc0f4d32470c2167d31f784337.jpg" alt="">
+                        <div class="form-floating mb-5">
+                            <!--   PHOTO-->
+                            <input onchange="loadImage(event)" type="file"  name="myImage" accept="image/*" />
+                            <img id="image" src="{{this.img}}" alt="Lỗi" style="width: 50px; height: 50px;">
+                            <script>
+                                var loadImage = function (event) {
+                                    var img = document.getElementById("image");
+                                    img.src = URL.createObjectURL(event.target.files[0]);
+                                };
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -74,7 +82,7 @@
                         style="background-color: #8C2100; color: white; width: 400px;height: 50px;">Sửa
                         sách</button>
                 </div>
-
+                {{/each}}
             </form>
         </div>
     </div>

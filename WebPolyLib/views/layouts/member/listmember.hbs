@@ -12,7 +12,8 @@
     </form>
     <table class="table table-hover mt-3">
         <thead>
-            <tr>
+            <tr class="text-center">
+                <th scope="col">Mã thành viên</th>
                 <th scope="col">Tên thành viên</th>
                 <th scope="col">Số điện thoại</th>
                 <th scope="col">Ảnh</th>
@@ -20,43 +21,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td scope="row">Nguyễn Văn A</td>
-                <td>09124123</td>
+            {{#each data}}
+            <tr class="text-center">
+                <td scope="row">{{this.memberID}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.phone}}</td>
                 <td>
-                    <div class="shadow-sm p-3 rounded" style="width: 100px;">
-                        <img src="../../images/z4518521918846_a158c9fc0f4d32470c2167d31f784337.jpg" alt="">
-                    </div>
-                </td>
-                <td>
-                    <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary" type="button">Sửa</button>
-                        <button class="btn btn-danger" type="button">Xóa</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td scope="row">Nguyễn Văn A</td>
-                <td>09124123</td>
-                <td>
-                    <div class="shadow-sm p-3 rounded" style="width: 100px;">
-                        <img src="../../images/z4518521918846_a158c9fc0f4d32470c2167d31f784337.jpg" alt="">
-                    </div>
-                </td>
-                <td>
-                    <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary m-1" onclick="window.location.href='/updatemember/'">Sửa</button>
-
-                        <button class="btn btn-danger" type="button">Xóa</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td scope="row">Nguyễn Văn A</td>
-                <td>09124123</td>
-                <td>
-                    <div class="shadow-sm p-3 rounded" style="width: 100px;">
-                        <img src="../../images/z4518521918846_a158c9fc0f4d32470c2167d31f784337.jpg" alt="">
+                    <div class="shadow-sm p-3 rounded" style="width: 80px; margin-left: 120px;">
+                        <img src="{{this.img}}" alt="" width="50px" height="50px">
                     </div>
                 </td>
                 <td>
@@ -91,7 +63,7 @@
 
                 </td>
             </tr>
-
+            {{/each}}
         </tbody>
     </table>
 </div>

@@ -13,7 +13,11 @@ exports.listType = async (req, res) => {
         data: arrTypeBook
     })
 }
-
+exports.layoutaddType = async (req, res) => {
+    res.render('typebook/addtype', {
+        layout: 'main'
+    })
+}
 exports.addType = async (req, res) => {
 
 
@@ -31,9 +35,15 @@ exports.addType = async (req, res) => {
         layout: 'main'
     })
 }
-exports.updateType = async (req, res) => {
+exports.layoutupdateType = async (req, res) => {
     let arrTypeBook = await md.find({ _id: getId }).lean();
 
+    res.render('typebook/updatetype', {
+        layout: 'main',
+        data: arrTypeBook
+    })
+}
+exports.updateType = async (req, res) => {
     const { name } = req.body;
     let objTypeBook = { name: name };
 
@@ -42,11 +52,10 @@ exports.updateType = async (req, res) => {
     } else {
         let kq = await md.updateOne({ _id: getId }, objTypeBook);
         res.redirect('/typeBook');
-        console.log(kq);    
+        console.log(kq);
     }
     res.render('typebook/updatetype', {
         layout: 'main',
-        data: arrTypeBook
     })
 }
 //Lấy id
@@ -61,7 +70,7 @@ exports.getId = (req, res) => {
 
 exports.deleteType = async (req, res) => {
     const { id } = req.body;
-    await md.deleteOne({ _id: id});
+    await md.deleteOne({ _id: id });
     console.log("Xóa thành công");
     res.redirect('/typeBook');
     return;

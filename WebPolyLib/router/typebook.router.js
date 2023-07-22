@@ -5,15 +5,15 @@ const app = express();
 
 router.get('/typeBook', typeBookController.listType)
 
-router.get('/addtype', typeBookController.addType)
+router.get('/addtype', typeBookController.layoutaddType)
 router.post('/addtype', typeBookController.addType)
 
-router.get('/updatetypebook', typeBookController.updateType)
+router.get('/updatetypebook', typeBookController.layoutupdateType)
 router.post('/updatetypebook', typeBookController.updateType)
 
 router.post('/deletetypebook', typeBookController.deleteType)
 
-router.post('/getId', typeBookController.getId)
+router.post('/getIdType', typeBookController.getId)
 
 
 module.exports = router;

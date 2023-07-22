@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use('/js', express.static('js'));
 app.use('/images', express.static('images'));
+app.use('/uploads', express.static('uploads'));
 
 app.engine('.hbs', expressHbs.engine({ extname: 'hbs', defaultLayout: 'login', layoutsDir: 'views/' }));
 
