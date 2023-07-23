@@ -8,43 +8,64 @@
                         word-wrap: break-word">Sửa Thành Viên</Text>
     </div>
     <div class="row mt-3 rounded-3 d-flex justify-content-center m-5" style="height: 800px; background-color: #F5F6F8;">
-        <div class="row d-flex justify-content-center align-items-center" style="width: 180px; height: 100px;">
-            <img src="../../../images/updateimg.png" class="rounded" alt="Hình ảnh">
-            <button type="button" class="btn" style="background-color: #972400; color: white;">Chọn ảnh</button>
-        </div>
         <div class="row" style="margin-top: 0px;">
-            <form>
+            <form action="/updatemember" method="POST" enctype="multipart/form-data">
+                {{#each data}}
                 <div class="mb-3">
                     <div class="row">
-                        <label for="exampleInputEmail1" class="form-label">Tên người dùng <span
+                        <label for="exampleInputEmail1" class="form-label">Mã thành viên <span
                                 class="text-danger">*</span></label>
                     </div>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        value="Nguyễn Văn A">
+                    <input type="text" value="{{this.memberID}}" name="memberID" class="form-control"
+                        id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <label for="exampleInputEmail1" class="form-label">Tên thành viên <span
+                                class="text-danger">*</span></label>
+                    </div>
+                    <input type="text" value="{{this.name}}" name="name" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <div class="row">
                         <label for="exampleInputEmail1" class="form-label">Địa chỉ <span
                                 class="text-danger">*</span></label>
                     </div>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        value="Hà Nội">
+                    <input type="text" value="{{this.address}}" name="address" class="form-control"
+                        id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <div class="row">
                         <label for="exampleInputEmail1" class="form-label">Điện thoại <span
                                 class="text-danger">*</span></label>
                     </div>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        value="09234123">
+                    <input type="text" value="{{this.phone}}" name="phone" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
                 </div>
-
+                <div class="mt-3">
+                    <div class="row">
+                        <label for="exampleInputEmail1" class="form-label">Ảnh <span
+                                class="text-danger">*</span></label>
+                    </div>
+                    <div class="form-floating mb-5">
+                        <!--   PHOTO-->
+                        <input onchange="loadImage(event)" type="file" name="myImage" accept="image/*" />
+                        <img id="image" src="{{this.img}}" alt="Lỗi" style="width: 50px; height: 50px;">
+                        <script>
+                            var loadImage = function (event) {
+                                var img = document.getElementById("image");
+                                img.src = URL.createObjectURL(event.target.files[0]);
+                            };
+                        </script>
+                    </div>
+                </div>
                 <div class="d-flex justify-content-center align-items-center">
                     <button class="btn p-2" type="submit"
-                        style="background-color: #8C2100; color: white; width: 400px;height: 50px;">Sửa người
-                        dùng</button>
+                        style="background-color: #8C2100; color: white; width: 400px;height: 50px;">Sửa thành
+                        viên</button>
                 </div>
-
+                {{/each}}
             </form>
         </div>
     </div>

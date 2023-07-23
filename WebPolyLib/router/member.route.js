@@ -44,7 +44,10 @@ router.get('/member', memberControllers.listMember)
 router.get('/addmember', memberControllers.layoutadd)
 router.post('/addmember', upload.single('myImage'), memberControllers.add)
 
-router.get('/updatemember', memberControllers.update)
+router.get('/updatemember', memberControllers.layoutupdate)
+router.post('/updatemember', upload.single('myImage'), memberControllers.update)
 
+router.post('/getIdMember', memberControllers.getId)
 
+router.post('/deletemember', memberControllers.deletemember)
 module.exports = router;
