@@ -37,6 +37,18 @@ const routerApiBook = require('./router/routerAPI/book.router');
 app.use('/api', routerApiBook);
 const routerApiTypeBook = require('./router/routerAPI/typebook.router');
 app.use('/api', routerApiTypeBook);
+const routerApiUser = require('./router/routerAPI/user.router');
+app.use('/api', routerApiUser);
+const routerApiMember = require('./router/routerAPI/member.router');
+app.use('/api', routerApiMember);
+const routerApiLoanDeltail = require('./router/routerAPI/loandeltial.router');
+app.use('/api', routerApiLoanDeltail);
+//login
+const routerApiLogin = require('./router/routerAPI/login.router');
+app.use('/api', routerApiLogin);
+//search
+const routerApiSearch = require('./router/routerAPI/search.router');
+app.use('/api',routerApiSearch);
 
 app.get('/', (req, res) => {
     res.redirect('/home');
