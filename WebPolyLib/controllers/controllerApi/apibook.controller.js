@@ -44,11 +44,11 @@ exports.listTypeBook = async (req, res, next) => {
 
 //add 
 exports.addBook = async (req, res, next) => {
-    const { years, name, count, img, _idType } = req.body;
+    const { years, name, count, img, _idType, author } = req.body;
     if (!years || !name || !img || !count || !_idType) {
         return res.json({ status: 0, message: 'Dữ liệu không hợp lệ' });
     }
-    const book = new md({ name, years, img, count, _idType });
+    const book = new md({ name, years, img, count, _idType , author });
     try {
         const result = await book.save();
         res.json({ status: 1, message: 'Thêm thành công', data: result });
