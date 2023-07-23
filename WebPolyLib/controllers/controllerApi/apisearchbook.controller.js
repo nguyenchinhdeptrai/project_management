@@ -37,6 +37,7 @@ exports.seachNameBook = async (req, res, next) => {
     }
 };
 
+
 exports.demo = async (req, res, next) => {
     try {
         const searchName = req.body.name; // Lấy tên loại sách cần tìm kiếm từ query parameters
