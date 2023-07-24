@@ -4,7 +4,7 @@ const md1 = require('../model/modeltypebook');
 
 const uri = 'mongodb+srv://phungchikien196:Qa4168ciXnRnjV9G@apppolylib.5gjczzc.mongodb.net/PolyLib?retryWrites=true&w=majority';
 mongoose.connect(uri);
-console.log("Kết nối DB thành công");
+
 
 exports.listBook = async (req, res) => {
     let arrBook = await md.find().populate('_idType').lean();

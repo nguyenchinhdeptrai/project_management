@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const routerLoanSlip = require("../controllers/loanslip.controller")
+const loanSlipController = require("../controllers/loanslip.controller")
 const app = express();
 
-router.get('/list', routerLoanSlip.listLoanSlip)
-router.get('/infomation', routerLoanSlip.infomationLoanSlip)
+router.get('/list', loanSlipController.listLoanSlip)
+router.get('/infomation', loanSlipController.infomationLoanSlip)
+
+router.post('/getIdLoanSlip', loanSlipController.getId)
 
 module.exports = router;

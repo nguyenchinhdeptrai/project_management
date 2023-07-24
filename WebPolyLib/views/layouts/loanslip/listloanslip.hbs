@@ -12,7 +12,7 @@
     </form>
     <table class="table table-hover mt-3">
         <thead>
-            <tr>
+            <tr class="text-center">
                 <th scope="col">Thủ thư</th>
                 <th scope="col">Người mượn</th>
                 <th scope="col">Tên sách</th>
@@ -20,66 +20,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td scope="row">Nguyễn Văn A</td>
-                <td>Nguyễn Văn B</td>
-                <td>Ngữ văn 12</td>
+            {{#each data}}
+            <tr class="text-center">
+                <td scope="row">{{this._idUser.name}}</td>
+                <td>{{this._idMember.name}}</td>
+                <td>{{this._idBook.name}}</td>
                 <td>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary" type="button">Xem chi tiết</button>
-                        <button class="btn btn-danger" type="button">Xóa</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td scope="row">Nguyễn Văn A</td>
-                <td>Nguyễn Văn B</td>
-                <td>Ngữ văn 12</td>
-                <td>
-                    <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary" type="button">Xem chi tiết</button>
-                        <button class="btn btn-danger" type="button">Xóa</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td scope="row">Nguyễn Văn A</td>
-                <td>Nguyễn Văn B</td>
-                <td>Ngữ văn 12</td>
-                <td>
-                    <div class="d-grid gap-2 d-md-block">
-                        <a class="btn btn-primary " href="/infomation">Xem chi
-                            tiết</a>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            Xóa
-                        </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Xóa phiếu mượn</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Bạn có muốn xóa phiếu mượn này đi không
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Không</button>
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Có</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <form action="/getIdLoanSlip" method="post">
+                            <button value="{{this._id}}" name="_id" class="btn btn-primary "
+                                onclick="window.location.href='/infomation/'">Xem chi
+                                tiết</button>
+                        </form>
+
                     </div>
 
                 </td>
             </tr>
-
+            {{/each}}
         </tbody>
     </table>
 </div>

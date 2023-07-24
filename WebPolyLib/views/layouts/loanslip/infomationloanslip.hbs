@@ -9,52 +9,53 @@
     </div>
     <div class="row" style="margin-top: 20px;">
         <form>
+            {{#each data}}
             <div class="mb-3">
                 <div class="row">
                     <label for="exampleInputEmail1" class="form-label">Tên người mượn <span
                             class="text-danger">*</span></label>
                 </div>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    value="Nguyên Văn A">
+                <input disabled type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    value="{{this._idMember.name}}">
             </div>
             <div class="mb-3">
                 <div class="row">
                     <label for="exampleInputEmail1" class="form-label">Tên Sách <span
                             class="text-danger">*</span></label>
                 </div>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    value="Ngữ văn 12">
+                <input disabled type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    value="{{this._idBook.name}}">
             </div>
             <div class="mb-3">
                 <div class="row">
                     <label for="exampleInputEmail1" class="form-label">Điện thoại <span
                             class="text-danger">*</span></label>
                 </div>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    value="0912345678">
+                <input disabled type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    value="{{this._idMember.phone}}">
             </div>
             <div class="mb-3">
                 <div class="row">
                     <label for="exampleInputEmail1" class="form-label">Thủ thư <span
                             class="text-danger">*</span></label>
                 </div>
-                <input type="text" class="form-control" id="exampleInputPassword1" value="Nguyễn Văn Thư">
+                <input disabled type="text" class="form-control" id="exampleInputPassword1" value="{{this._idUser.name}}">
             </div>
             <div class="row d-flex justify-content-between" style="margin-top: 40px;">
                 <div class="input-group mb-3" style="width: 45%;">
                     <lable class="input-group-text" id="basic-addon1">Giá</lable>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                        aria-describedby="basic-addon1" value="120.000đ">
+                    <input disabled type="text" class="form-control" placeholder="Username" aria-label="Username"
+                        aria-describedby="basic-addon1" value="{{this.price}}">
                 </div>
                 <div class="input-group mb-3 " style="width: 45%;">
                     <lable class="input-group-text" id="basic-addon1">Ngày</lable>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                        aria-describedby="basic-addon1" value="10/2/2023">
+                    <input disabled type="text" class="form-control" placeholder="Username" aria-label="Username"
+                        aria-describedby="basic-addon1" value="{{this.date}}">
                 </div>
             </div>
 
     </div>
 
-
+    {{/each}}
     </form>
 </div>

@@ -11,5 +11,5 @@ const dataLoanDeltail = new mongoose.Schema(
 
 );
 
-const LoanDeltail = mongoose.model('loandetails', dataLoanDeltail);
+const LoanDeltail = mongoose.model('loandetail', dataLoanDeltail);
 module.exports = LoanDeltail;

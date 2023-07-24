@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const md = require('../model/modelmember');
 const uri = 'mongodb+srv://phungchikien196:Qa4168ciXnRnjV9G@apppolylib.5gjczzc.mongodb.net/PolyLib?retryWrites=true&w=majority';
 mongoose.connect(uri);
-console.log("Kết nối DB thành công");
+
 
 exports.listMember = async (req, res) => {
     let arrMember = await md.find().lean();
