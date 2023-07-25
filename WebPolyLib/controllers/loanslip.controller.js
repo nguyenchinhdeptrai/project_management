@@ -25,6 +25,8 @@ exports.infomationLoanSlip = async (req, res) => {
         .populate('_idMember')
         .populate('_idUser')
         .lean();
+
+
     res.render('loanslip/infomationloanslip', {
         layout: 'main',
         data: arrLoanSlip

@@ -2,10 +2,16 @@ const express = require('express');
 const expressHbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const alert = require('alert');
+const mongoose = require('mongoose');
+const handlebarsHelpers = require('./handlebars-helpers')
+const md = require('./model/modelloandeltail'); //
 
 const app = express();
 
 const port = 3000;
+
+const uri = 'mongodb+srv://phungchikien196:Qa4168ciXnRnjV9G@apppolylib.5gjczzc.mongodb.net/PolyLib?retryWrites=true&w=majority';
+mongoose.connect(uri);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -13,7 +19,7 @@ app.use('/js', express.static('js'));
 app.use('/images', express.static('images'));
 app.use('/uploads', express.static('uploads'));
 
-app.engine('.hbs', expressHbs.engine({ extname: 'hbs', defaultLayout: 'login', layoutsDir: 'views/' }));
+app.engine('.hbs', expressHbs.engine({ extname: 'hbs', defaultLayout: 'login', layoutsDir: 'views/', helpers: handlebarsHelpers.helpers }));
 
 app.set('view engine', '.hbs');
 app.set('views', './views/layouts');
@@ -48,7 +54,7 @@ const routerApiLogin = require('./router/routerAPI/login.router');
 app.use('/api', routerApiLogin);
 //search
 const routerApiSearch = require('./router/routerAPI/search.router');
-app.use('/api',routerApiSearch);
+app.use('/api', routerApiSearch);
 
 app.get('/', (req, res) => {
     res.redirect('/home');
@@ -75,10 +81,62 @@ app.post('/login', (req, res) => {
         res.redirect('/login');
     }
 });
-app.get('/home', (req, res) => {
-    res.render('home', {
-        layout: "main",
-    });
+app.get('/home', async (req, res) => {
+    try {
+        const dataMonth = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+
+        // Lấy danh sách các bản ghi từ cơ sở dữ liệu
+        const data = await md.find().lean();
+
+        // Tính tổng price và lượt mượn theo từng tháng
+        const totalPriceByMonth = {};
+        const totalLoansByMonth = {}; //Lượt mượn trong tháng
+
+        // Khởi tạo các khóa cho các tháng trong totalPriceByMonth và totalLoansByMonth
+        // Mục đích của việc này là đảm bảo rằng tất cả các tháng 
+        // có giá trị ban đầu là 0 trong hai đối tượng trước khi 
+        // chúng ta bắt đầu tính tổng doanh thu và số lượt mượn thực 
+        // tế từ dữ liệu. 
+        dataMonth.forEach((monthName, index) => {
+            totalPriceByMonth[monthName] = 0;
+            totalLoansByMonth[monthName] = 0;
+        });
+
+        data.forEach(item => {
+            const [day, month, year] = item.endDate.split('/');
+            //month khi chuyển về INT sẽ là số phải - 1 để bằng với index trong mảng
+            const monthName = dataMonth[parseInt(month) - 1];
+
+            totalPriceByMonth[monthName] += item.price;
+            totalLoansByMonth[monthName]++;
+        });
+        // Chuyển dữ liệu sang mảng để truyền cho Handlebars
+        const totalPriceData = dataMonth.map(monthName => ({
+            month: monthName,
+            totalPrice: totalPriceByMonth[monthName] || 0,
+        }))
+
+        const totalLoansData = dataMonth.map(monthName => ({
+            month: monthName,
+            totalLoans: totalLoansByMonth[monthName] || 0,
+        }));
+        //C2: dùng cũng được
+        // const totalPriceData = Object.keys(totalPriceByMonth).map(key => ({
+        //     month: key,
+        //     totalPrice: totalPriceByMonth[key] || 0,
+        // }));
+
+
+        res.render('home', {
+            layout: "main",
+            totalPriceData,
+            totalLoansData,
+            dataMonth
+        });
+    } catch (error) {
+        console.error('Đã xảy ra lỗi khi lấy dữ liệu:', error);
+        res.status(500).send('Đã xảy ra lỗi khi lấy dữ liệu.');
+    }
 })
 
 app.listen(port, () => {

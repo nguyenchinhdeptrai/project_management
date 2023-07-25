@@ -53,19 +53,86 @@
 
         <div class="col-9" style="margin: auto;">
             <h4 class="pb-2">Biểu đồ doanh thu</h4>
-            <canvas id="myColumnChart"></canvas>
+            <canvas id="myColumnChartPrice"></canvas>
         </div>
 
         <!-- Kịch bản tạo biểu đồ sẽ được gọi sau khi tải trang -->
-        <script src="/js/chartColumnDoanhThu.js"></script>
+        <script>
+            const dataPriceViews = {{{ JSONstringify totalPriceData }}};
+            const dataPrice = dataPriceViews.map(item => item.totalPrice);
+            const labelsPriceMonth = {{{ JSONstringify dataMonth }}};
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var ctx = document.getElementById('myColumnChartPrice').getContext('2d');
+
+                const chartDataPrice = {
+                    labels: labelsPriceMonth,
+                    datasets: [{
+                        label: 'Doanh thu',
+                        backgroundColor: 'rgba(27, 89, 248, 0.2)',
+                        borderColor: 'rgba(27, 89, 248, 1)',
+                        borderWidth: 1,
+                        data: dataPrice,
+
+                    }]
+                };
+                var myChartPrice = new Chart(ctx, {
+                    type: 'bar',
+                    data: chartDataPrice,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            });
+
+        </script>
 
         <div class="col-9 mt-5" style="margin: auto;">
-             <h4 class="pb-2">Biểu đồ lượt mượn</h4>    
-            <canvas id="mycolumnChartViews"></canvas>
+            <h4 class="pb-2">Biểu đồ lượt mượn</h4>
+            <canvas id="mycolumnChartLoans"></canvas>
         </div>
 
         <!-- Kịch bản tạo biểu đồ sẽ được gọi sau khi tải trang -->
-        <script src="/js/chartColumnView.js"></script>
+        <script>
+            const dataLoanViews = {{{ JSONstringify totalLoansData }}};
+            const dataLoans = dataLoanViews.map(item => item.totalLoans);
+            const labelsLoansMonth = {{{ JSONstringify dataMonth }}};
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var ctx = document.getElementById('mycolumnChartLoans').getContext('2d');
+
+                const chartDataLoans = {
+                    labels: labelsLoansMonth,
+                    datasets: [{
+                        label: 'Lượt mượn',
+                        backgroundColor: 'rgba(27, 89, 248, 0.2)',
+                        borderColor: 'rgba(27, 89, 248, 1)',
+                        borderWidth: 1,
+                        data: dataLoans,
+
+                    }]
+                };
+
+                var myChartLoans = new Chart(ctx, {
+                    type: 'bar',
+                    data: chartDataLoans,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            });
+
+        </script>
     </div>
 
 </div>

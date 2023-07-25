@@ -39,18 +39,26 @@
                     <label for="exampleInputEmail1" class="form-label">Thủ thư <span
                             class="text-danger">*</span></label>
                 </div>
-                <input disabled type="text" class="form-control" id="exampleInputPassword1" value="{{this._idUser.name}}">
+                <input disabled type="text" class="form-control" id="exampleInputPassword1"
+                    value="{{this._idUser.name}}">
             </div>
             <div class="row d-flex justify-content-between" style="margin-top: 40px;">
+                <div class="input-group mb-3 " style="width: 45%;">
+                    <lable class="input-group-text" style="width: 25%;" id="basic-addon1">Ngày mượn</lable>
+                    <input disabled type="text" class="form-control" placeholder="Username" aria-label="Username"
+                        aria-describedby="basic-addon1" value="{{this.startDate}}">
+                </div>
+
                 <div class="input-group mb-3" style="width: 45%;">
-                    <lable class="input-group-text" id="basic-addon1">Giá</lable>
+                    <lable class="input-group-text" style="width: 15%;" id="basic-addon1">Giá</lable>
                     <input disabled type="text" class="form-control" placeholder="Username" aria-label="Username"
                         aria-describedby="basic-addon1" value="{{this.price}}">
                 </div>
+
                 <div class="input-group mb-3 " style="width: 45%;">
-                    <lable class="input-group-text" id="basic-addon1">Ngày</lable>
+                    <lable class="input-group-text" style="width: 25%;" id="basic-addon1">Ngày trả</lable>
                     <input disabled type="text" class="form-control" placeholder="Username" aria-label="Username"
-                        aria-describedby="basic-addon1" value="{{this.date}}">
+                        aria-describedby="basic-addon1" value="{{this.endDate}}">
                 </div>
             </div>
 
