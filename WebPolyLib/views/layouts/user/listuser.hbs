@@ -20,30 +20,21 @@
             </tr>
         </thead>
         <tbody>
+
+            {{#each data}}
             <tr>
-                <td scope="row">Nguyễn Văn A</td>
-                <td>Hà Nội</td>
-                <td>
-                    <p>Admin</p>
-                </td>
+                <td>{{name}}</td>
+                <td>{{address}}</td>
+                <td>{{status}}</td>
                 <td>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary m-1" onclick="window.location.href='/updateuser/'">Sửa</button>
-                        <button class="btn btn-danger" type="button">Xóa</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td scope="row">Nguyễn Văn A</td>
-                <td>Hà Nội</td>
-                <td>
-                    <p>User</p>
-                </td>
-                <td>
-                    <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary" type="button">Sửa</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
+                        <label>
+                            <form action="/getIdUser" method="POST">
+                                <button class="btn btn-primary m-1" value="{{this._id}}" name="_id">Sửa</button>
+                            </form>
+                        </label>
+                        <button type="button" data-bs-whatever="{{this._id}}" data-bs-whatever2="{{this.name}}"
+                            class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Xóa
                         </button>
                         <!-- Modal -->
@@ -52,17 +43,22 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Xóa người dùng</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Xóa loại sách</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Bạn có muốn xóa người dùng này đi không
+                                        Bạn có muốn xóa sách này đi không? <br>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Không</button>
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Có</button>
+                                        <form action="/delteuser" method="POST">
+                                            <button type="submit" class="btn btn-danger"> <input style="display: none;"
+                                                    type="text" name="id">
+                                                Có</button>
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -70,8 +66,30 @@
                     </div>
 
                 </td>
+
             </tr>
+            {{/each}}
 
         </tbody>
     </table>
 </div>
+
+<script>const exampleModal = document.getElementById('exampleModal')
+    exampleModal.addEventListener('show.bs.modal', event => {
+        // Button that triggered the modal
+        const button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        const recipient = button.getAttribute('data-bs-whatever')
+        const recipient2 = button.getAttribute('data-bs-whatever2')
+        // If necessary, you could initiate an Ajax request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+        const modalTitle = exampleModal.querySelector('.modal-title')
+        const modalBody = exampleModal.querySelector('.modal-body')
+        const modalFooterInput = exampleModal.querySelector('.modal-footer input')
+
+        modalTitle.textContent = `Bạn có chắc chắn muốn xóa người dùng đi không?`
+        modalBody.textContent = `Người dùng cần xóa: ${recipient2}`
+        modalFooterInput.value = recipient
+    })</script>
