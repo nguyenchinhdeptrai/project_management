@@ -6,7 +6,7 @@ import Login from './Comp/Login';
 import Splashscreen from './Comp/Splashscreen';
 import ChangePass from './Comp/ChangePass';
 import ChangePass2 from './Comp/ChangePass2';
-import Home from './Comp/Home';
+import Home from './Comp/ScreenBotNavi/Home';
 import TabNav from './TabNav';
 
 
