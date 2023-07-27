@@ -1,23 +1,23 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react';
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <Image source={require('../../assets/logoapp.png')} style={styles.logo} />
+            <Image source={require('../assets/logoapp.png')} style={styles.logo} />
             <View style={styles.viewFromLogin}>
                 <View style={styles.viewTextinput}>
-                    <Text style={{color:'gray'}}>Tên đăng nhập</Text>
+                    <Text style={{ color: 'gray' }}>Tên đăng nhập</Text>
                     <TextInput placeholder='' style={styles.textInput} />
                 </View>
                 <View style={styles.viewTextinput}>
-                    <Text style={{color:'gray'}}>Mật khẩu</Text>
+                    <Text style={{ color: 'gray' }}>Mật khẩu</Text>
                     <TextInput placeholder='' style={styles.textInput} />
                 </View>
-                <Text style={styles.textForgotpassword} onPress={()=>navigation.navigate('ChangePass')}>Quên mật khẩu</Text>
+                <Text style={styles.textForgotpassword} onPress={() => navigation.navigate('ChangePass')}>Quên mật khẩu</Text>
             </View>
             <View style={styles.viewButtonLogin} >
-                <TouchableOpacity style={styles.btnLogin}>
-                    <Text style={{ color: 'white', fontSize: 15 }}>Đăng Nhập</Text>
+                <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate('TabNav')}>
+                    <Text style={{ color: 'white', fontSize: 15 }} >Đăng Nhập</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.viewFooter}>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     }, viewFooter: {
         flex: 1,
         width: '55%',
-        marginTop:12,
+        marginTop: 12,
     }, viewTextinput: {
         marginHorizontal: 30,
         marginBottom: 20,
@@ -60,14 +60,14 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: "white",
         height: 40,
-        padding:10,
+        padding: 10,
     }, textForgotpassword: {
         marginLeft: '68%',
-        color:'gray'
+        color: 'gray'
     }, btnLogin: {
         width: 250,
         height: 50,
-        backgroundColor: '#972400',
+        backgroundColor: '#97240090',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 12,

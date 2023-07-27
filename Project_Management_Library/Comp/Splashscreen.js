@@ -9,7 +9,7 @@ const Splashscreen = ({ navigation }) => {
     },[])
     return (
         <View style={styles.container}>
-            <Image source={require('../../assets/logoapp.png')} />
+            <Image source={require('../assets/logoapp.png')} />
         </View>
     )
 }

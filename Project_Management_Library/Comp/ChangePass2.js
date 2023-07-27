@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const ChangePass2 = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <Image source={require('../../assets/logoapp.png')} style={styles.logo} />
+            <Image source={require('../assets/logoapp.png')} style={styles.logo} />
             <Text style={styles.textChangePass}>Thay đổi mật khẩu</Text>
             <View style={styles.viewFromLogin}>
                 <View style={styles.viewTextinput}>

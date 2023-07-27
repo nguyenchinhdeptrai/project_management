@@ -2,10 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from './Comp/LoginandChangePass/Login';
-import Splashscreen from './Comp/LoginandChangePass/Splashscreen';
-import ChangePass from './Comp/LoginandChangePass/ChangePass';
-import ChangePass2 from './Comp/LoginandChangePass/ChangePass2';
+import Login from './Comp/Login';
+import Splashscreen from './Comp/Splashscreen';
+import ChangePass from './Comp/ChangePass';
+import ChangePass2 from './Comp/ChangePass2';
+import Home from './Comp/Home';
+import TabNav from './TabNav';
 
 
 
@@ -19,6 +21,8 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="ChangePass" component={ChangePass} options={{ headerShown: false }} />
         <Stack.Screen name='ChangePass2' component={ChangePass2} options={{ headerShown: false }} />
+        <Stack.Screen name="TabNav" component={TabNav} options={{ headerShown: false }} />
+        <Stack.Screen name="Home" component={Home} options={{ title: 'Trang chủ' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
