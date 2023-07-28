@@ -51,4 +51,7 @@ router.post('/deletebook', bookController.deleteBook)
 
 router.post('/getIdBook', bookController.getId)
 
+router.get('/search', bookController.getSeach)
+router.post('/search', bookController.getSeach)
+
 module.exports = router;

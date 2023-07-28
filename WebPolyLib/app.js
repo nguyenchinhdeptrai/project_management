@@ -57,12 +57,12 @@ const routerApiSearch = require('./router/routerAPI/search.router');
 app.use('/api', routerApiSearch);
 
 app.get('/', (req, res) => {
-    res.redirect('/home');
+    res.redirect('/login');
 })
 
 app.get('/login', (req, res) => {
     res.render('login', {
-        layout: "main",
+        layout: "mainAuth",
     });
 })
 

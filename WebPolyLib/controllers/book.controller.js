@@ -8,10 +8,9 @@ mongoose.connect(uri);
 
 exports.listBook = async (req, res) => {
     let arrBook = await md.find().populate('_idType').lean();
-
     res.render('book/listbook', {
         layout: 'main',
-        data: arrBook
+        data: arrBook,
     })
 }
 exports.layoutaddBook = async (req, res) => {
@@ -92,4 +91,27 @@ exports.deleteBook = async (req, res) => {
     console.log("Xóa thành công");
     res.redirect('/book');
     return;
+}
+
+exports.getSeach = async (req, res) => {
+    const { searchString } = req.body;
+    if (searchString != "") {
+        let arrBook = await md.find().populate('_idType').lean();
+
+        let result = [];
+        for (let index = 0; index < arrBook.length; index++) {
+            const element = arrBook[index];
+            if (element.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1) {
+                result.push(element);
+            }
+        }
+        var newArr = result;
+        res.render('book/listbook', {
+            layout: 'main',
+            data: newArr,
+        })
+    }
+    else {
+        res.redirect('/book');
+    }
 }
