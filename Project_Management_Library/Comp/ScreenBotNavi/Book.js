@@ -1,16 +1,29 @@
 import { StyleSheet, Text, View, TouchableHighlight, Image, TouchableOpacity, FlatList } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import ItemListBook from '../Item/ItemListBook';
 
 const Book = ({ navigation }) => {
-  const dataListType = [
-    { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-    { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-    { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-    { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+  const url = 'http://192.168.1.4:3000/api/books';
+  // const dataListType = [
+  //   { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+  //   { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+  //   { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+  //   { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
 
-  ]
+  // ]
+  const [listBook, setlistBook] = useState([]);
+  useEffect(() => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        setlistBook(json);
+        console.log(json);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.title}>
@@ -41,8 +54,8 @@ const Book = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={dataListType}
-        renderItem={({ item }) => <ItemListBook title={item.name} img={item.img} des={item.des} count={item.count} />}
+        data={listBook.data}
+        renderItem={({ item }) => <ItemListBook item={item} />}
         keyExtractor={(item) => item.id}
         style={{ marginTop: 16 }}
       />
