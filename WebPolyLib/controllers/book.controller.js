@@ -21,17 +21,17 @@ exports.layoutaddBook = async (req, res) => {
     })
 }
 exports.addBook = async (req, res) => {
+    let arrTypeBook = await md1.find().lean();
+    const { name, author, years, count, selectType, img } = req.body;
 
-    const { name, author, years, count, selectType } = req.body;
-    const file = req.file.path;
-    const image = "http://localhost:3000/" + file;
+    let objBook = { name: name, author: author, years: years, count: count, img: img, _idType: selectType }
 
-    let objBook = { name: name, author: author, years: years, count: count, _idType: selectType, img: image }
-
-    if (!name || !author || !years || !count || !selectType) {
+    if (!name || !author || !years || !count || !selectType || !img) {
         console.log("Chưa đủ thông tin");
+        res.redirect('/addbook');
     } else if (isNaN(count)) {
         console.log("Số lượng phải là số");
+        res.redirect('/addbook');
     } else {
         let kq = await md.insertMany(objBook);
         res.redirect('/book')
@@ -41,7 +41,7 @@ exports.addBook = async (req, res) => {
 
     res.render('book/addbook', {
         layout: 'main',
-
+        dataTypeBook: arrTypeBook,
     })
 }
 exports.layoutupdateBook = async (req, res) => {
@@ -54,16 +54,16 @@ exports.layoutupdateBook = async (req, res) => {
     })
 }
 exports.updateBook = async (req, res) => {
-    const { name, author, years, count, selectType } = req.body;
-    const file = req.file.path;
-    const image = "http://localhost:3000/" + file;
+    const { name, author, years, count, selectType, img } = req.body;
 
-    let objBook = { name: name, author: author, years: years, count: count, _idType: selectType, img: image }
+    let objBook = { name: name, author: author, years: years, count: count, img: img, _idType: selectType }
 
-    if (!name || !author || !years || !count || !selectType) {
+    if (!name || !author || !years || !count || !selectType || !img) {
         console.log("Chưa đủ thông tin");
+        res.redirect('/updatebook');
     } else if (isNaN(count)) {
         console.log("Số lượng phải là số");
+        res.redirect('/updatebook');
     } else {
         let kq = await md.updateOne({ _id: getId }, objBook);
         res.redirect('/book')
