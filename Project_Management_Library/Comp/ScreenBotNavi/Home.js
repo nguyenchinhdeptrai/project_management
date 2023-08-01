@@ -1,11 +1,75 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Modal, Image, TouchableOpacity, FlatList } from 'react-native';
 import ItemMember from '../Item/ItemMember';
 import ItemType from '../Item/ItemType';
+import ItemListType from '../Item/ItemListType';
+import AddMember from '../Item/AddMember';
+
+//import file config
+import { API_IP } from '../config';
+import ModalListMember from '../ModalApp/ModalListMember';
 import ItemListType from '../Item/ItemListBook';
 
 
+
 function Home({ navigation }) {
+    //list members 1
+    const [dataMember, setDataMember] = useState([]);
+    //list member 2
+    const [listMember, setListMember] = useState([]);
+    //
+    const fetchListMember = (linkAPI) => {
+        return fetch(linkAPI)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((jsonData) => {
+                if (jsonData && jsonData.data) {
+                    return jsonData.data;
+                } else {
+                    throw new Error('Invalid data format');
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+                throw error;
+            });
+    };
+    useEffect(() => {
+        //
+        const apiListMember = `http://${API_IP}:3000/api/member`;
+        fetchListMember(apiListMember)
+            .then((data) => setListMember(data))
+            .catch((error) => {
+                console.log(error + " lỗi fetch link");
+            });
+
+        // Gọi API để lấy dữ liệu JSON
+        fetch(`http://${API_IP}:3000/api/member`)
+            .then((response) => response.json())
+            .then((jsonData) => {
+                if (jsonData && jsonData.data) {
+                    // Giới hạn dữ liệu để chỉ có 3 sản phẩm đầu tiên
+                    const limitedData = jsonData.data.slice(0, 3);
+                    console.log(jsonData + " data check");
+                    // Thêm phần tử "Thêm sản phẩm" vào cuối mảng dữ liệu
+                    const newData = [...limitedData, { id: 'addProduct', title: 'Thêm sản phẩm' }];
+                    setDataMember(newData);
+                } else {
+                    console.error('Invalid data format:', jsonData);
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+
+    }, []);
+    console.log('Data from API:', dataMember);
+    console.log('Full data of member list: ' + listMember);
+
     const getCurrentTime = () => {
         const currentHour = new Date().getHours();
         return currentHour;
@@ -22,21 +86,35 @@ function Home({ navigation }) {
         }
     };
 
+
+
     const data = [
         { id: '1', title: 'Item 1', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
         { id: '2', title: 'Item 2', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
         { id: '3', title: 'Item 3', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-        { id: '4', title: 'Item 4', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+
     ];
+
     //
     const dataListType = [
+
         { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
         { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
         { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
         { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+
 
     ]
 
+    //
+    const [modalVisible, setModalVisible] = useState(false);
+    const openModal = () => {
+        setModalVisible(true);
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
+    };
 
     return (
         <View style={styles.container}>
@@ -55,24 +133,30 @@ function Home({ navigation }) {
                     <Text>10</Text>
                 </View>
             </View>
-            <Text style={styles.textHello}>Danh sách thành viên</Text>
+            <Text style={styles.textHello} onPress={openModal}>Danh sách thành viên</Text>
+            {/* ModalListAllMember */}
+            <ModalListMember
+                modalVisible={modalVisible}
+                closeModal={closeModal}
+                listMember={listMember}
+            />
+
             <View>
                 <FlatList
-                    data={data}
+                    data={dataMember}
                     horizontal={true}
-                    renderItem={({ item }) => <ItemMember title={item.title} img={item.img} />}
+                    renderItem={({ item }) => {
+                        if (item.id === 'addProduct') {
+                            return <AddMember />;
+                        }
+                        return <ItemMember name={item.name} img={item.img} />;
+                    }}
                     keyExtractor={(item) => item.id}
                     style={styles.listMember}
                 />
+
             </View>
             <Text style={styles.textHello}>Thể loại mượn nhiều nhất</Text>
-            {/* <View> <FlatList
-                data={data}
-                horizontal={true}
-                renderItem={({ item }) => <ItemType title={item.title} />}
-                keyExtractor={(item) => item.id}
-                style={styles.listMember} />
-            </View> */}
             <View>
                 <FlatList
                     data={data}
@@ -86,7 +170,6 @@ function Home({ navigation }) {
                 data={dataListType}
                 renderItem={({ item }) => <ItemListType title={item.name} img={item.img} des={item.des} count={item.count} />}
                 keyExtractor={(item) => item.id}
-
             />
         </View>
     );
@@ -131,10 +214,21 @@ const styles = StyleSheet.create({
     }, listMember: {
         height: 100,
         marginLeft: 20,
-        backgroundColor: 'gray'
     }, listType: {
-        height: 100,
+        height: 50,
         marginLeft: 10
+    }, viewlistMember: {
+        alignItems: 'center',
+
+    }, textTitleModal: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        padding: 5,
+    }, listMemberModal: {
+        width: '90%',
+        height: '100%',
+        backgroundColor: 'gray',
+
     }
 
 });

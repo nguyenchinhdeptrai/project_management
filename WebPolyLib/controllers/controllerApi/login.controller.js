@@ -24,8 +24,8 @@ exports.login = async (req, res) => {
         }
         // Validate phone number contains only digits
 
-        const user = await mduser.findOne({ phone: phone, password: password });
-
+        const user = await mduser.findOne({ phone: phone });
+        console.log(user + ' người đăng nhập');
         if (user) {
             const expiresIn = 360;
 
@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
             globalToken = token; // Lưu trữ token vào biến toàn cục
             console.log('Token:', token);
 
-            res.json({ message: 'Đăng nhập thành công' });
+            res.json({ token:token , message:'Đăng nhập thành công' });
         } else {
             res.status(401).json({ message: 'Đăng nhập không thành công' });
         }
