@@ -39,7 +39,7 @@ const DetailTypeBook = (props) => {
                         }
 
                         const data = await response.json();
-                        console.log('Đã xóa thành viên:', data);
+                        console.log('Đã xóa loại sách:', data);
                         Alert.alert('Thành công', 'Xóa loại sách thành công',  props.navigation.navigate('TypeBook'));
                        
                         return data;
@@ -63,7 +63,7 @@ const DetailTypeBook = (props) => {
 
     }
     //
-    const addTypeBook = async () => {
+    const updateTypeBook = async () => {
         let objTypeBook = { _id: item._id, name: name };
 
         if (!name) {
@@ -110,7 +110,7 @@ const DetailTypeBook = (props) => {
                     </TouchableOpacity>
                 </View>
                 <View style={{ flex: 2, alignItems: 'center', marginTop: 24 }}>
-                    <Text style={styles.textTitle}>Sách</Text>
+                    <Text style={styles.textTitle}>Thông tin loại sách</Text>
                 </View>
                 <View style={{ flex: 1, alignItems: 'flex-end' }}>
 
@@ -123,7 +123,7 @@ const DetailTypeBook = (props) => {
                 </View>
             </View>
             <View style={{ flexDirection: 'row', bottom: 100 }}>
-                <TouchableOpacity style={styles.btnAdd} onPress={addTypeBook}>
+                <TouchableOpacity style={styles.btnAdd} onPress={updateTypeBook}>
                     <Text style={{ color: 'white', fontSize: 15 }} >Sửa</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.btnCancel} onPress={deleteTypeBook}>

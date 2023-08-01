@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import ItemListBook from '../Item/ItemListBook';
 import { API_IP } from '../config';
+import { RefreshControl } from 'react-native';
 
 const Book = ({ navigation }) => {
   const url = `http://${API_IP}:3000/api/books`;
@@ -13,8 +14,10 @@ const Book = ({ navigation }) => {
   //   { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
 
   // ]
+  const [isLoading, setisLoading] = useState(false);
   const [listBook, setlistBook] = useState([]);
-  useEffect(() => {
+
+  const getData = () => {
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
@@ -24,6 +27,18 @@ const Book = ({ navigation }) => {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  const reloadData = React.useCallback(() => {
+    getData();
+    setisLoading(true);
+    setTimeout(() => {
+      setisLoading(false);
+    }, 1000);
+  })
+
+  useEffect(() => {
+    getData();
   }, []);
   return (
     <View style={styles.container}>
@@ -39,7 +54,7 @@ const Book = ({ navigation }) => {
         <TouchableHighlight activeOpacity={0.6}
           underlayColor={'#CB9180'}
           style={styles.buttonBook}
-          onPress={() => { }} >
+          onPress={() => navigation.navigate('AddBook')} >
           <Text style={styles.textBook}>+  Thêm sách</Text>
         </TouchableHighlight>
 
@@ -55,8 +70,9 @@ const Book = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <FlatList
+        refreshControl={<RefreshControl refreshing={isLoading} onRefresh={reloadData} />}
         data={listBook.data}
-        renderItem={({ item }) => <ItemListBook item={item} />}
+        renderItem={({ item }) => <ItemListBook item={item} navigation={navigation} />}
         keyExtractor={(item) => item.id}
         style={{ marginTop: 16 }}
       />

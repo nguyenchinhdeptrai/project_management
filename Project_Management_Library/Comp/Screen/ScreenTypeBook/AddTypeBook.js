@@ -62,7 +62,7 @@ const AddTypeBook = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
                 <View style={{ flex: 2, alignItems: 'center', marginTop: 24 }}>
-                    <Text style={styles.textTitle}>Sách</Text>
+                    <Text style={styles.textTitle}>Thêm loại sách</Text>
                 </View>
                 <View style={{ flex: 1, alignItems: 'flex-end' }}>
 
