@@ -3,12 +3,12 @@ import { StyleSheet, Text, View, Modal, Image, TouchableOpacity, FlatList } from
 import ItemMember from '../Item/ItemMember';
 import ItemType from '../Item/ItemType';
 import ItemListType from '../Item/ItemListType';
-import AddMember from '../Item/AddMember';
+import AddMember from '../ModalApp/ModalAddMember';
 
 //import file config
 import { API_IP } from '../config';
 import ModalListMember from '../ModalApp/ModalListMember';
-import ItemListType from '../Item/ItemListBook';
+import ItemListBook from '../Item/ItemListBook';
 
 
 

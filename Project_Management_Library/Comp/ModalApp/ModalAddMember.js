@@ -110,7 +110,7 @@ const AddMember = () => {
                         width: 80,
                         height: 80,
                     }} />
-                    <Text style={styles.addProductText}>Add Member</Text>
+                    <Text style={styles.addProductText}>Thêm thành viên</Text>
                 </View>
             </TouchableOpacity>
             <Modal visible={modalVisible} transparent={true} onRequestClose={() => setModalVisible(false)}>

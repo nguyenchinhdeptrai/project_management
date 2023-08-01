@@ -1,11 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import React from 'react'
 
-const ItemType = ({ title }) => {
+const ItemType = ({ item, navigation }) => {
+    if (!item) {
+        return null;
+    }
     return (
-        <View style={{ height: 45, backgroundColor: 'white', padding: 10, borderRadius: 12, borderWidth: 1,marginLeft:12 }}>
-            <Text>{title}</Text>
-        </View>
+        <TouchableHighlight activeOpacity={0.6} underlayColor={'white'} onPress={() => { navigation.navigate('DeTailTypeBook', { item: item }) }}>
+            <View style={{ height: 45, backgroundColor: 'white', padding: 10, borderRadius: 12, borderWidth: 1, margin: 12 }}>
+                <Text>{item.name}</Text>
+            </View>
+        </TouchableHighlight>
+
     )
 }
 
