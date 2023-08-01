@@ -2,6 +2,8 @@ const mdmember = require('../../model/modelmember');
 
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://phungchikien196:Qa4168ciXnRnjV9G@apppolylib.5gjczzc.mongodb.net/PolyLib?retryWrites=true&w=majority";
+//
+
 
 
 //list member
@@ -18,23 +20,23 @@ exports.listMember = async (req, res, next) => {
 }
 //add member
 exports.addMember = async (req, res, next) => {
-    const { phone, name, address, img, memberID, } = req.body;
-    if (!phone || !name || !img || !address || !memberID) {
-        return res.json({ status: 0, message: 'Dữ liệu không hợp lệ' });
+    const { phone, name, address, img } = req.body;
+    if (!phone || !name || !address) {
+        return res.status(400).json({ status: 0, message: 'Dữ liệu không hợp lệ' });
     }
-    const user = new mdmember({ phone, name, address, img, memberID, });
+    const user = new mdmember({ phone, name, address, img });
     try {
         const result = await user.save();
-        res.json({ status: 1, message: 'Thêm thành công', data: result });
+        res.status(200).json({ status: 1, message: 'Thêm thành công', data: result });
     } catch (err) {
-        res.json({ status: 0, message: 'Thêm thất bại', error: err.message });
+        res.status(500).json({ status: 0, message: 'Thêm thất bại', error: err.message });
     }
 };
 //update
 exports.updateMember = async (req, res, next) => {
     const { _id, phone, name, address, img, memberID, } = req.body;
     try {
-        const update = await mdmember.findByIdAndUpdate(_id, {  phone, name, address, img, memberID, }, { new: true });
+        const update = await mdmember.findByIdAndUpdate(_id, { phone, name, address, img, memberID, }, { new: true });
         if (!update) {
             return res.json({ status: 0, message: 'Không tìm thấy dữ liệu' });
         }

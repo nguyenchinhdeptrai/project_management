@@ -1,22 +1,64 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react';
+import { Alert } from 'react-native';
+import { API_IP } from './config';
 const Login = ({ navigation }) => {
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+
+    //function login
+    const LoginApp = () => {
+        if (!phone || !password) {
+            Alert.alert('Lỗi', 'Dữ liệu không hợp lệ');
+            return;
+        }
+        // Chuyển đổi dữ liệu thành x-www-form-urlencoded.
+        const formData = `phone=${encodeURIComponent(phone)}&password=${encodeURIComponent(password)}`;
+        console.log(formData + ' dữ liệu đã được chuyển');
+        // Gửi dữ liệu lên server để thực hiện đăng nhập.
+        fetch(`http://${API_IP}:3000/api/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Xử lý phản hồi từ server.
+                if (data.token) {
+                    // Đăng nhập thành công, thực hiện điều hướng đến màn hình 'TabNav'.
+                    Alert.alert('Thông báo', 'Đăng nhập thành công');
+                    navigation.navigate('TabNav');
+                } else {
+                    // Đăng nhập thất bại, hiển thị thông báo lỗi từ server (nếu có).
+                    Alert.alert('Lỗi', data.error || 'Đăng nhập thất bại');
+                }
+            })
+            .catch(error => {
+                // Xử lý lỗi nếu có.
+                Alert.alert('Lỗi', 'Đã xảy ra lỗi khi gọi API đăng nhập');
+                console.error('API Error:', error);
+            });
+    }
+    //chưa dùng đăng nhập
+
     return (
         <View style={styles.container}>
             <Image source={require('../assets/logoapp.png')} style={styles.logo} />
             <View style={styles.viewFromLogin}>
                 <View style={styles.viewTextinput}>
-                    <Text style={{ color: 'gray' }}>Tên đăng nhập</Text>
-                    <TextInput placeholder='' style={styles.textInput} />
+                    <Text style={{ color: 'gray' }}>Số điện thoại</Text>
+                    <TextInput placeholder='' style={styles.textInput} onChangeText={(text) => setPhone(text)} />
                 </View>
                 <View style={styles.viewTextinput}>
                     <Text style={{ color: 'gray' }}>Mật khẩu</Text>
-                    <TextInput placeholder='' style={styles.textInput} />
+                    <TextInput placeholder='' style={styles.textInput} onChangeText={(text) => setPassword(text)} />
                 </View>
                 <Text style={styles.textForgotpassword} onPress={() => navigation.navigate('ChangePass')}>Quên mật khẩu</Text>
             </View>
             <View style={styles.viewButtonLogin} >
-                <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate('TabNav')}>
+                <TouchableOpacity style={styles.btnLogin} onPress={()=>navigation.navigate('TabNav')}>
                     <Text style={{ color: 'white', fontSize: 15 }} >Đăng Nhập</Text>
                 </TouchableOpacity>
             </View>
