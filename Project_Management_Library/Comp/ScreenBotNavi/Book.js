@@ -2,9 +2,10 @@ import { StyleSheet, Text, View, TouchableHighlight, Image, TouchableOpacity, Fl
 import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import ItemListBook from '../Item/ItemListBook';
+import { API_IP } from '../config';
 
 const Book = ({ navigation }) => {
-  const url = 'http://192.168.1.4:3000/api/books';
+  const url = `http://${API_IP}:3000/api/books`;
   // const dataListType = [
   //   { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
   //   { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
