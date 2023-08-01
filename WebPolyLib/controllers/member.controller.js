@@ -17,25 +17,25 @@ exports.layoutadd = (req, res) => {
     })
 }
 exports.add = async (req, res) => {
-    const { memberID, name, address, phone } = req.body;
-    const file = req.file.path;
-    const image = "http://localhost:3000/" + file;
+    const { memberID, name, address, phone, img } = req.body;
 
     var phoneNumberRegex = /^[0-9]{10}$/;
 
-    let objMember = { memberID: memberID, name: name, address: address, phone: phone, img: image };
+    let objMember = { memberID: memberID, name: name, address: address, phone: phone, img: img };
 
-    if (!memberID || !name || !address || !phone) {
+    if (!memberID || !name || !address || !phone || !img) {
         console.log("Chưa đủ thông tin");
+        return res.send('<script>alert("Chưa đủ thông tin."); window.location="/addmember";</script>');
     } else if (isNaN(phone)) {
         console.log("phải là số");
+        return res.send('<script>alert("Số điện thoại phải là số."); window.location="/addmember";</script>');
     } else if (!phoneNumberRegex.test(phone)) {
         console.log("Số điện thoại chưa đúng định dạng");
+        return res.send('<script>alert("Số điện thoại sai định dạng."); window.location="/addmember";</script>');
     } else {
         let kq = await md.insertMany(objMember);
-        res.redirect('/member')
         console.log(kq);
-        return;
+        return res.send('<script>alert("Thêm thành viên thành công."); window.location="/member";</script>');
     }
     res.render('member/addmember', {
         layout: 'main'
@@ -49,25 +49,25 @@ exports.layoutupdate = async (req, res) => {
     })
 }
 exports.update = async (req, res) => {
-    const { memberID, name, address, phone } = req.body;
-    const file = req.file.path;
-    const image = "http://localhost:3000/" + file;
+    const { memberID, name, address, phone, img } = req.body;
 
     var phoneNumberRegex = /^[0-9]{10}$/;
 
-    let objMember = { memberID: memberID, name: name, address: address, phone: phone, img: image };
+    let objMember = { memberID: memberID, name: name, address: address, phone: phone, img: img };
 
-    if (!memberID || !name || !address || !phone) {
+    if (!memberID || !name || !address || !phone || !img) {
         console.log("Chưa đủ thông tin");
+        return res.send('<script>alert("Chưa đủ thông tin."); window.location="/updatemember";</script>');
     } else if (isNaN(phone)) {
         console.log("phải là số");
+        return res.send('<script>alert("Số điện thoại phải là số."); window.location="/updatemember";</script>');
     } else if (!phoneNumberRegex.test(phone)) {
         console.log("Số điện thoại chưa đúng định dạng");
+        return res.send('<script>alert("Số điện thoại sai định dạng."); window.location="/updatemember";</script>');
     } else {
         let kq = await md.updateOne({ _id: getId }, objMember);
-        res.redirect('/member')
         console.log(kq);
-        return;
+        return res.send('<script>alert("Sửa thành viên thành công."); window.location="/member";</script>');
     }
     res.render('member/updatemember', {
         layout: 'main',

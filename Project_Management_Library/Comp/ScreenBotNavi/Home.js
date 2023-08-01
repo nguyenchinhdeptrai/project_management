@@ -8,6 +8,8 @@ import AddMember from '../Item/AddMember';
 //import file config
 import { API_IP } from '../config';
 import ModalListMember from '../ModalApp/ModalListMember';
+import ItemListType from '../Item/ItemListBook';
+
 
 
 function Home({ navigation }) {
@@ -95,10 +97,12 @@ function Home({ navigation }) {
 
     //
     const dataListType = [
-        { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Adsjkflasdjlkajsdclkasdsjdfpaosdfj', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-        { id: 2, name: 'Truyện kể về anh chăn trâu', des: 'Adsjkflasdjlkajsdclkasdsjdfpaosdfj', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-        { id: 3, name: 'Truyện kể về anh chăn trâu', des: 'Adsjkflasdjlkajsdclkasdsjdfpaosdfj', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-        { id: 4, name: 'Truyện kể về anh chăn trâu', des: 'Adsjkflasdjlkajsdclkasdsjdfpaosdfj', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+
+        { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+        { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+        { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+        { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+
 
     ]
 
@@ -178,7 +182,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F8F6F4',
     }, title: {
-        marginTop: 25,
         width: '100%',
         height: 60,
         backgroundColor: '#CB9180',
@@ -188,7 +191,8 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         fontWeight: 'bold',
-        padding: 5
+        padding: 5,
+        marginTop: 10
     }, viewReturnBook: {
         flexDirection: 'row',
         alignItems: 'center',

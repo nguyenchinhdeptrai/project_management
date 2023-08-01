@@ -5,6 +5,7 @@ const alert = require('alert');
 const mongoose = require('mongoose');
 const handlebarsHelpers = require('./handlebars-helpers')
 const md = require('./model/modelloandeltail'); //
+const mdUser = require('./model/modeluser');
 
 const app = express();
 
@@ -57,28 +58,39 @@ const routerApiSearch = require('./router/routerAPI/search.router');
 app.use('/api', routerApiSearch);
 
 app.get('/', (req, res) => {
-    res.redirect('/home');
+    res.redirect('/login');
 })
 
 app.get('/login', (req, res) => {
     res.render('login', {
+<<<<<<< HEAD
         layout: "",
+=======
+        layout: "mainAuth",
+>>>>>>> master
     });
 })
 
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
+    let arrUser = await mdUser.find();
     const { userName, password } = req.body;
-    if (userName == 'admin' && password == 'admin') {
-        alert('Đăng nhập thành công')
+    let foundUser = false;
+    arrUser.forEach(element => {
+        if (userName == element.phone && password == element.password) {
+            foundUser = true;
+            if (element.status == "Admin") {
+                setTimeout(() => {
+                    return res.send('<script>alert("Đăng nhập thành công."); window.location="/home";</script>');
+                }, 2000);
 
-        setTimeout(() => {
-            res.redirect('/home');
-        }, 2000);
-
-    } else {
-        alert('Không đúng tài khoản mật khẩu')
-        res.redirect('/login');
+            } else {
+                return res.send('<script>alert("Tài khoản này không có quyền truy cập."); window.location="/login";</script>');
+            }
+        }
+    });
+    if (!foundUser  ) {
+        return res.send('<script>alert("Không đúng tài khoản mật khẩu."); window.location="/login";</script>');
     }
 });
 app.get('/home', async (req, res) => {

@@ -7,8 +7,9 @@
                         letter-spacing: 0.36px;
                         word-wrap: break-word">Sách Trong Thư Viện</Text>
     </div>
-    <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Tìm Kiếm" aria-label="Search" style="height:60px;">
+    <form class="d-flex" method="post" action="/search">
+        <input class="form-control me-2" name="searchString"  type="search" placeholder="Tìm Kiếm" aria-label="Search"
+            style="height:60px;">
     </form>
     <table class="table table-hover mt-3">
         <thead>

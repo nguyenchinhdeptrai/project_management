@@ -7,6 +7,7 @@ import Splashscreen from './Comp/Splashscreen';
 import ChangePass from './Comp/ChangePass';
 import ChangePass2 from './Comp/ChangePass2';
 import Home from './Comp/ScreenBotNavi/Home';
+import TypeBook from './Comp/TypeBook';
 import TabNav from './TabNav';
 
 
@@ -16,13 +17,14 @@ export default function App() {
 
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName='Splashscreen'>
+      <Stack.Navigator initialRouteName='TabNav'>
         <Stack.Screen name="Splashscreen" component={Splashscreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="ChangePass" component={ChangePass} options={{ headerShown: false }} />
         <Stack.Screen name='ChangePass2' component={ChangePass2} options={{ headerShown: false }} />
         <Stack.Screen name="TabNav" component={TabNav} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={Home} options={{ title: 'Trang chủ' }} />
+        <Stack.Screen name="TypeBook" component={TypeBook} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -10,23 +10,26 @@
     <div class="row mt-3 rounded-3 d-flex justify-content-center m-5" style="height: 800px; background-color: #F5F6F8;">
 
         <div class="row" style="margin-top: 0px;">
-            <form action="/updateuser" method="POST" enctype="multipart/form-data">
+            <form action="/updateuser" method="POST" >
                 {{#each data}}
-                <div class="row justify-content-center align-items-center"
-                    style="width: 180px; height: 200px; margin: 0 auto;">
-                    <img id="image" src="{{this.img}}" alt="Lỗi" style="width: 150px; height: 150px;">
-                    <label for="imageInput" class="btn" style="background-color: #972400; color: white;">Chọn
-                        ảnh</label>
-                    <input id="imageInput" type="file" name="myImage" accept="image/*" onchange="loadImage(event)"
-                        style="display: none;">
+                <div class="mb-3">
+                <div class="text-center mt-4">
+                    <img id="image" src="{{this.img}}" alt="Lỗi"
+                        style="width: 120px; height: 120px;">
                 </div>
-
+                <div class="row">
+                    <label for="exampleInputEmail1" class="form-label">Ảnh<span class="text-danger">*</span></label>
+                </div>
+                <input onchange="loadImage(event)" type="text" name="img" class="form-control" id="inputImg"
+                    aria-describedby="emailHelp" value="{{this.img}}">
                 <script>
                     var loadImage = function (event) {
                         var img = document.getElementById("image");
-                        img.src = URL.createObjectURL(event.target.files[0]);
-                    };
+                        var inputImg = event.target.value; // Lấy đường dẫn ảnh từ giá trị của thẻ input
+                        img.src = inputImg; // Gán đường dẫn ảnh vào thuộc tính src của thẻ img
+                    };  
                 </script>
+            </div>
                 <div class="mb-3">
                     <div class="row">
                         <label for="exampleInputEmail1" class="form-label">Tên người dùng <span

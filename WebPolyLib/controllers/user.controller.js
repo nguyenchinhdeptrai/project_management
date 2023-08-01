@@ -17,13 +17,12 @@ exports.listUser = async (req, res) => {
 
 
 exports.addUser = async (req, res) => {
-    const { name, address, phone, password, selectStatus } = req.body;
-    const file = req.file.path;
-    const image = "http://localhost:3000/" + file;
+    const { name, address, phone, password, selectStatus, img } = req.body;
 
-    let objUser = { name: name, address: address, phone: phone, password: password, status: selectStatus, img: image };
-    if (!name || !address || !phone || !password || !selectStatus) {
+    let objUser = { name: name, address: address, phone: phone, password: password, status: selectStatus, img: img };
+    if (!name || !address || !phone || !password || !selectStatus || !img) {
         console.log("Chưa đủ thông tin");
+        return res.send('<script>alert("Chưa đủ thông tin."); window.location="/adduser";</script>');
     } else {
         let kq = await mduser.insertMany(objUser);
         res.redirect('/user')
@@ -33,22 +32,19 @@ exports.addUser = async (req, res) => {
 }
 
 exports.updateUser = async (req, res) => {
-    const { name, address, phone, password, selectStatus } = req.body;
-    const file = req.file;
+    const { name, address, phone, password, selectStatus, img } = req.body;
 
     if (!name || !address || !phone || !password || !selectStatus) {
         console.log("Chưa đủ thông tin");
-        return res.status(400).send("Chưa đủ thông tin");
+        return res.send('<script>alert("Chưa đủ thông tin."); window.location="/updateuser";</script>');
     }
 
-    if (!file) {
+    if (!img) {
         console.log("Chưa chọn ảnh");
-        return res.status(400).send("Chưa chọn ảnh");
+        return res.send('<script>alert("Chưa có link ảnh."); window.location="/updateuser";</script>');
     }
 
-    const image = "http://localhost:3000/" + file.path;
-
-    let objUser = { name: name, address: address, phone: phone, password: password, status: selectStatus, img: image };
+    let objUser = { name: name, address: address, phone: phone, password: password, status: selectStatus, img: img };
 
     try {
         let kq = await mduser.updateOne({ _id: getId }, objUser);

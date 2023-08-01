@@ -8,21 +8,26 @@
                         word-wrap: break-word">Thêm Người Dùng</Text>
     </div>
     <div class="row mt-3 rounded-3 d-flex justify-content-center m-5" style="height: 800px; background-color: #F5F6F8;">
-        <form action="/adduser" method="POST" enctype="multipart/form-data">
+        <form action="/adduser" method="POST">
 
-            <div class="row justify-content-center align-items-center" style="width: 180px; height: 200px; margin: 0 auto;">
-                <img id="image" src="../../../images/updateimg.png" alt="Lỗi" style="width: 150px; height: 150px;">
-                <label for="imageInput" class="btn" style="background-color: #972400; color: white;">Chọn ảnh</label>
-                <input id="imageInput" type="file" name="myImage" accept="image/*" onchange="loadImage(event)"
-                    style="display: none;">
+            <div class="mb-3">
+                <div class="text-center mt-4">
+                    <img id="image" src="../../images/z4518521918846_a158c9fc0f4d32470c2167d31f784337.jpg" alt="Lỗi"
+                        style="width: 120px; height: 120px;">
+                </div>
+                <div class="row">
+                    <label for="exampleInputEmail1" class="form-label">Ảnh<span class="text-danger">*</span></label>
+                </div>
+                <input onchange="loadImage(event)" type="text" name="img" class="form-control" id="inputImg"
+                    aria-describedby="emailHelp" value="{{this.img}}">
+                <script>
+                    var loadImage = function (event) {
+                        var img = document.getElementById("image");
+                        var inputImg = event.target.value; // Lấy đường dẫn ảnh từ giá trị của thẻ input
+                        img.src = inputImg; // Gán đường dẫn ảnh vào thuộc tính src của thẻ img
+                    };  
+                </script>
             </div>
-
-            <script>
-                var loadImage = function (event) {
-                    var img = document.getElementById("image");
-                    img.src = URL.createObjectURL(event.target.files[0]);
-                };
-            </script>
 
             <div class="row" style="margin-top: 20px;">
                 <div class="mb-3">
@@ -30,21 +35,24 @@
                         <label for="exampleInputEmail1" class="form-label">Tên người dùng <span
                                 class="text-danger">*</span></label>
                     </div>
-                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <div class="row">
                         <label for="exampleInputEmail1" class="form-label">Địa chỉ <span
                                 class="text-danger">*</span></label>
                     </div>
-                    <input type="text" name="address" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" name="address" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <div class="row">
                         <label for="exampleInputEmail1" class="form-label">Điện thoại <span
                                 class="text-danger">*</span></label>
                     </div>
-                    <input type="text" name="phone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" name="phone" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <div class="row">
