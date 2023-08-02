@@ -18,15 +18,16 @@ exports.listLoanDeltail = async (req, res, next) => {
                 if (book && member && user) {
                     deltail = deltail.toObject(); // Chuyển đổi đối tượng Mongoose sang đối tượng JavaScript thông thường
                     deltail.bookName = book.name;
+                    deltail.bookImage = book.img;
                     deltail.userName = user.name;
-                    deltail.phoneNumer = member.phone;
-                    deltail.nameNumber = member.name;
+                    deltail.phoneMember = member.phone;
+                    deltail.nameMember = member.name;
                     return deltail;
                 } else {
                     deltail.bookName = "Không tìm thấy dữ liệu";
                     deltail.userName = "Không tìm thấy dữ liệu";
-                    deltail.phoneNumer = "Không tìm thấy dữ liệu";
-                    deltail.nameNumber = "Không tìm thấy dữ liệu";
+                    deltail.phoneMember = "Không tìm thấy dữ liệu";
+                    deltail.nameMember = "Không tìm thấy dữ liệu";
                     return deltail;
                 }
             }));
