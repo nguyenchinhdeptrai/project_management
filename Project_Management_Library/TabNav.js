@@ -5,10 +5,14 @@ import Home from "./Comp/ScreenBotNavi/Home";
 import Book from "./Comp/ScreenBotNavi/Book";
 import Loan from "./Comp/ScreenBotNavi/Loan";
 import Person from "./Comp/ScreenBotNavi/Person";
+import { useFocusEffect } from '@react-navigation/native';
+import { useEffect } from "react";
+
 
 const Tab = createBottomTabNavigator();
 
 const TabNav = ({ route }) => {
+
 
     return (
         <Tab.Navigator
@@ -19,7 +23,7 @@ const TabNav = ({ route }) => {
                 tabBarActiveTintColor: '#97240090',
                 tabBarInactiveTintColor: '#4B4B4B',
                 tabBarLabelStyle: { fontSize: 12, },
-          
+
             }}>
 
             <Tab.Screen name={"Trang Chủ"} component={Home}

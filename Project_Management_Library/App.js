@@ -13,6 +13,9 @@ import AddTypeBook from './Comp/Screen/ScreenTypeBook/AddTypeBook';
 import DeTailTypeBook from './Comp/Screen/ScreenTypeBook/DetailTypeBook'
 import AddBook from './Comp/Screen/ScreenBook/AddBook';
 import DetailBook from './Comp/Screen/ScreenBook/DetailBook';
+import AddMember from './Comp/Screen/ScreenMember/AddMember';
+import ListMember from './Comp/Screen/ScreenMember/ListMember';
+
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -31,6 +34,8 @@ export default function App() {
         <Stack.Screen name="DeTailTypeBook" component={DeTailTypeBook} options={{ headerShown: false }} />
         <Stack.Screen name="AddBook" component={AddBook} options={{ headerShown: false }} />
         <Stack.Screen name="DetailBook" component={DetailBook} options={{ headerShown: false }} />
+        <Stack.Screen name="AddMember" component={AddMember} options={{ headerShown: false }} />
+        <Stack.Screen name='ListMember' component={ListMember} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
