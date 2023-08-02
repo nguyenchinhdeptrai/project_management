@@ -1,23 +1,26 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native'
 import React from 'react'
 
-const ItemListType = ({ item }) => {
+const ItemListBook = ({ item, navigation }) => {
     if (!item) {
         return null;
     }
     return (
-        <View style={styles.container}>
-            <Image source={{ uri: item.img }} style={styles.img} />
-            <View style={{ padding: 10 }}>
-                <Text>{item.name}</Text>
-                <Text>{item.categoryName}</Text>
-                <Text>Số lượng:{item.count}</Text>
+        <TouchableHighlight activeOpacity={0.6} underlayColor={'white'} onPress={() => { navigation.navigate('DetailBook', { item: item }) }}>
+            <View style={styles.container}>
+                <Image source={{ uri: item.img }} style={styles.img} />
+                <View style={{ padding: 10 }}>
+                    <Text>{item.name}</Text>
+                    <Text>{item.categoryName}</Text>
+                    <Text>Số lượng:{item.count}</Text>
+                </View>
             </View>
-        </View>
+        </TouchableHighlight>
+
     )
 }
 
-export default ItemListType
+export default ItemListBook
 
 const styles = StyleSheet.create({
     container: {

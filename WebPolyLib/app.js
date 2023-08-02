@@ -64,6 +64,7 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login', {
         layout: "mainAuth",
+
     });
 })
 
@@ -85,7 +86,7 @@ app.post('/login', async (req, res) => {
             }
         }
     });
-    if (!foundUser  ) {
+    if (!foundUser) {
         return res.send('<script>alert("Không đúng tài khoản mật khẩu."); window.location="/login";</script>');
     }
 });
