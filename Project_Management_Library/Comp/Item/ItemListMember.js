@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, Modal } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import ModalUpdateMember from '../ModalApp/ModalUpdateMember';
@@ -7,7 +7,7 @@ import queryString from 'query-string';
 import { Alert } from 'react-native';
 
 
-const ItemListMember = ({ item, closeModal }) => {
+const ItemListMember = ({ item, onDeleteMember }) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [memberInfo, setMemberInfo] = useState({ item });
     const handleEditMember = () => {
@@ -47,6 +47,7 @@ const ItemListMember = ({ item, closeModal }) => {
 
             const deletedData = await response.json();
             console.log('Đã xóa thành viên:', deletedData);
+            onDeleteMember(item._id);
             return deletedData; // Trả về dữ liệu sau khi xóa thành công (tùy vào cấu trúc phản hồi của bạn)
         } catch (error) {
             console.error(error);

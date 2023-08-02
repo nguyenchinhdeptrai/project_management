@@ -3,12 +3,10 @@ import { StyleSheet, Text, View, Modal, Image, TouchableOpacity, FlatList } from
 import ItemMember from '../Item/ItemMember';
 import ItemType from '../Item/ItemType';
 import ItemListType from '../Item/ItemListType';
-import AddMember from '../ModalApp/ModalAddMember';
 
 //import file config
 import { API_IP } from '../config';
 import ModalListMember from '../ModalApp/ModalListMember';
-import ItemListBook from '../Item/ItemListBook';
 
 
 
@@ -17,6 +15,7 @@ function Home({ navigation }) {
     const [dataMember, setDataMember] = useState([]);
     //list member 2
     const [listMember, setListMember] = useState([]);
+
     //
     const fetchListMember = (linkAPI) => {
         return fetch(linkAPI)
@@ -67,6 +66,8 @@ function Home({ navigation }) {
             });
 
     }, []);
+
+
     console.log('Data from API:', dataMember);
     console.log('Full data of member list: ' + listMember);
 
@@ -99,9 +100,9 @@ function Home({ navigation }) {
     const dataListType = [
 
         { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-        { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-        { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-        { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+        { id: 2, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+        { id: 3, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+        { id: 4, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
 
 
     ]
@@ -133,7 +134,7 @@ function Home({ navigation }) {
                     <Text>10</Text>
                 </View>
             </View>
-            <Text style={styles.textHello} onPress={openModal}>Danh sách thành viên</Text>
+            <Text style={styles.textHello} onPress={() => navigation.navigate('ListMember')}>Danh sách thành viên</Text>
             {/* ModalListAllMember */}
             <ModalListMember
                 modalVisible={modalVisible}
@@ -147,7 +148,14 @@ function Home({ navigation }) {
                     horizontal={true}
                     renderItem={({ item }) => {
                         if (item.id === 'addProduct') {
-                            return <AddMember />;
+                            return (
+                                <TouchableOpacity onPress={() => navigation.navigate('AddMember')}
+                                    style={{ width: 120, height: 100, alignItems: 'center', justifyContent: 'center' }}>
+                                    <Image source={require('../../assets/add.png')} style={{ width: 80, height: 80, }} />
+                                    <Text style={{ color: 'black' }}>Thêm thành viên</Text>
+                                    {/* //<AddMember /> */}
+                                </TouchableOpacity>
+                            );
                         }
                         return <ItemMember name={item.name} img={item.img} />;
                     }}
