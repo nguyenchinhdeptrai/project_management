@@ -6,7 +6,6 @@ import ItemListType from '../Item/ItemListType';
 
 //import file config
 import { API_IP } from '../config';
-import ModalListMember from '../ModalApp/ModalListMember';
 
 
 
@@ -15,9 +14,30 @@ function Home({ navigation }) {
     const [dataMember, setDataMember] = useState([]);
     //list member 2
     const [listMember, setListMember] = useState([]);
-
+    //list type book
+    const [listType, setListType] = useState([]);
     //
     const fetchListMember = (linkAPI) => {
+        return fetch(linkAPI)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((jsonData) => {
+                if (jsonData && jsonData.data) {
+                    return jsonData.data;
+                } else {
+                    throw new Error('Invalid data format');
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+                throw error;
+            });
+    };
+    const fetchListTypeBook = (linkAPI) => {
         return fetch(linkAPI)
             .then((response) => {
                 if (!response.ok) {
@@ -45,6 +65,14 @@ function Home({ navigation }) {
             .catch((error) => {
                 console.log(error + " lỗi fetch link");
             });
+
+        //fetch list type book
+        const apiListTypeBook = `http://${API_IP}:3000/api/typebook`;
+        fetchListTypeBook(apiListTypeBook)
+        .then((data)=> setListType(data))
+        .catch((error) => {
+            console.log(error + ' lỗi lấy dữ liệu');
+        });
 
         // Gọi API để lấy dữ liệu JSON
         fetch(`http://${API_IP}:3000/api/member`)
@@ -87,15 +115,6 @@ function Home({ navigation }) {
         }
     };
 
-
-
-    const data = [
-        { id: '1', title: 'Item 1', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-        { id: '2', title: 'Item 2', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-        { id: '3', title: 'Item 3', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-
-    ];
-
     //
     const dataListType = [
 
@@ -106,17 +125,6 @@ function Home({ navigation }) {
 
 
     ]
-
-    //
-    const [modalVisible, setModalVisible] = useState(false);
-    const openModal = () => {
-        setModalVisible(true);
-    };
-
-    const closeModal = () => {
-        setModalVisible(false);
-    };
-
     return (
         <View style={styles.container}>
             <View style={styles.title}>
@@ -135,13 +143,6 @@ function Home({ navigation }) {
                 </View>
             </View>
             <Text style={styles.textHello} onPress={() => navigation.navigate('ListMember')}>Danh sách thành viên</Text>
-            {/* ModalListAllMember */}
-            <ModalListMember
-                modalVisible={modalVisible}
-                closeModal={closeModal}
-                listMember={listMember}
-            />
-
             <View>
                 <FlatList
                     data={dataMember}
@@ -167,9 +168,9 @@ function Home({ navigation }) {
             <Text style={styles.textHello}>Thể loại mượn nhiều nhất</Text>
             <View>
                 <FlatList
-                    data={data}
+                    data={listType}
                     horizontal={true}
-                    renderItem={({ item }) => <ItemType title={item.title} />}
+                    renderItem={({ item }) => <ItemType title={item.title} item={item} />}
                     keyExtractor={(item) => item.id}
                     style={styles.listType}
                 />
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
         height: 100,
         marginLeft: 20,
     }, listType: {
-        height: 50,
+        height: 60,
         marginLeft: 10
     }, viewlistMember: {
         alignItems: 'center',

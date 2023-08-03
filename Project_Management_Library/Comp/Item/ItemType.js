@@ -6,7 +6,7 @@ const ItemType = ({ item, navigation }) => {
         return null;
     }
     return (
-        <TouchableHighlight activeOpacity={0.6} underlayColor={'white'} onPress={() => { navigation.navigate('DeTailTypeBook', { item: item }) }}>
+        <TouchableHighlight activeOpacity={0.6} underlayColor={'white'}>
             <View style={{ height: 45, backgroundColor: 'white', padding: 10, borderRadius: 12, borderWidth: 1, margin: 12 }}>
                 <Text>{item.name}</Text>
             </View>
