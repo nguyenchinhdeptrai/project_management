@@ -7,6 +7,7 @@ import { Alert } from 'react-native';
 import { API_IP } from '../../config';
 import queryString from 'query-string';
 import { stringify } from 'query-string/base';
+import AddNewLoan from '../ScreenLoan/AddNewLoan';
 
 const DetailBook = (props) => {
     let item = props.route.params.item;
@@ -135,6 +136,11 @@ const DetailBook = (props) => {
     useEffect(() => {
         getDataTypeBook();
     }, []);
+
+    //function change add new load
+    const changeAddNewLoadn = () => {
+        props.navigation.navigate('AddNewLoan', { item });
+    }
     return (
         <View style={styles.container}>
             <View style={styles.title}>
@@ -193,6 +199,9 @@ const DetailBook = (props) => {
                     <Text style={{ color: '#97240090', fontSize: 15 }} >Xóa</Text>
                 </TouchableOpacity>
             </View>
+            <TouchableOpacity style={styles.btnLoan} onPress={changeAddNewLoadn}>
+                <Text style={styles.textBtnLoan}>Cho mượn sách {name}</Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -244,16 +253,16 @@ const styles = StyleSheet.create({
         width: 250,
     },
     btnAdd: {
-        width: 150,
-        height: 50,
+        width: '40%',
+        height: 45,
         backgroundColor: '#97240090',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 12,
     },
     btnCancel: {
-        width: 150,
-        height: 50,
+        width: '40%',
+        height: 45,
         backgroundColor: '#ffffff',
         alignItems: 'center',
         justifyContent: 'center',
@@ -261,5 +270,16 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#97240090',
         marginLeft: 16
+    }, btnLoan: {
+        width: '55%',
+        height: 45,
+        backgroundColor: '#97240090',
+        margin: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 15,
+    }, textBtnLoan: {
+        color: 'white',
+        padding: 5,
     }
 })

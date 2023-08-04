@@ -27,13 +27,11 @@ exports.login = async (req, res) => {
         const user = await mduser.findOne({ phone: phone });
         console.log(user + ' người đăng nhập');
         if (user) {
-            const expiresIn = 360;
-
-            const token = jwt.sign({ id: user._id }, secretKey, { expiresIn });
+            const token = jwt.sign({ id: user._id }, secretKey);
             globalToken = token; // Lưu trữ token vào biến toàn cục
             console.log('Token:', token);
 
-            res.json({ token:token , message:'Đăng nhập thành công' });
+            res.json({ token: token, message: 'Đăng nhập thành công' });
         } else {
             res.status(401).json({ message: 'Đăng nhập không thành công' });
         }
@@ -72,3 +70,29 @@ exports.authenticateToken = (req, res, next) => {
     });
 };
 
+// verity token
+exports.getUserInfo = async (req, res) => {
+    const token = req.body.token;
+    if (!token) {
+        return res.json({ status: 0, message: 'Token không hợp lệ' });
+    }
+    try {
+        const decodeToken = jwt.verify(token, secretKey);
+        console.log(decodeToken.id + ' token trả về');
+        const userData = await mduser.findOne({ _id: decodeToken.id });
+        if (!userData) {
+            return res.json({ status: 0, message: 'Người dùng không tồn tại' });
+        }
+        console.log(userData + ' dữ liệu đăng nhập');
+        res.json({ status: 1, message: 'Thành công', data: userData });
+    } catch (err) {
+        if (err.name === 'JsonWebTokenError') {
+            return res.json({ status: 0, message: 'Token không hợp lệ trong phần xác thực jwt' });
+        } else if (err.name === 'TokenExpiredError') {
+            return res.json({ status: 0, message: 'Token đã hết hạn' });
+        } else {
+            console.error('Error while querying the database:', err);
+            return res.json({ status: 0, message: 'Lỗi khi truy vấn cơ sở dữ liệu', error: err.message });
+        }
+    }
+}

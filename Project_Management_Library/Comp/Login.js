@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'reac
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { API_IP } from './config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Login = ({ navigation }) => {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
@@ -29,7 +31,16 @@ const Login = ({ navigation }) => {
                 if (data.token) {
                     // Đăng nhập thành công, thực hiện điều hướng đến màn hình 'TabNav'.
                     Alert.alert('Thông báo', 'Đăng nhập thành công');
-                    navigation.navigate('TabNav');
+                    // Lưu token vào AsyncStorage
+                    AsyncStorage.setItem('userToken', data.token)
+                        .then(() => {
+                            // Điều hướng đến màn hình 'TabNav' sau khi đã lưu token thành công
+                            navigation.navigate('TabNav');
+                        })
+                        .catch(error => {
+                            Alert.alert('Lỗi', 'Đã xảy ra lỗi khi lưu token');
+                            console.error('AsyncStorage Error:', error);
+                        });
                 } else {
                     // Đăng nhập thất bại, hiển thị thông báo lỗi từ server (nếu có).
                     Alert.alert('Lỗi', data.error || 'Đăng nhập thất bại');
@@ -58,7 +69,7 @@ const Login = ({ navigation }) => {
                 <Text style={styles.textForgotpassword} onPress={() => navigation.navigate('ChangePass')}>Quên mật khẩu</Text>
             </View>
             <View style={styles.viewButtonLogin} >
-                <TouchableOpacity style={styles.btnLogin} onPress={()=>navigation.navigate('TabNav')}>
+                <TouchableOpacity style={styles.btnLogin} onPress={LoginApp}>
                     <Text style={{ color: 'white', fontSize: 15 }} >Đăng Nhập</Text>
                 </TouchableOpacity>
             </View>

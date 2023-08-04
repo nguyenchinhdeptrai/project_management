@@ -15,6 +15,8 @@ import AddBook from './Comp/Screen/ScreenBook/AddBook';
 import DetailBook from './Comp/Screen/ScreenBook/DetailBook';
 import AddMember from './Comp/Screen/ScreenMember/AddMember';
 import ListMember from './Comp/Screen/ScreenMember/ListMember';
+import AddNewLoan from './Comp/Screen/ScreenLoan/AddNewLoan';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -22,7 +24,7 @@ export default function App() {
 
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName='TabNav'>
+      <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen name="Splashscreen" component={Splashscreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="ChangePass" component={ChangePass} options={{ headerShown: false }} />
@@ -36,6 +38,7 @@ export default function App() {
         <Stack.Screen name="DetailBook" component={DetailBook} options={{ headerShown: false }} />
         <Stack.Screen name="AddMember" component={AddMember} options={{ headerShown: false }} />
         <Stack.Screen name='ListMember' component={ListMember} options={{ headerShown: false }} />
+        <Stack.Screen name='AddNewLoan' component={AddNewLoan} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
