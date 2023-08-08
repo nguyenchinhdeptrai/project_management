@@ -165,7 +165,7 @@ function Home({ navigation }) {
                 />
 
             </View>
-            <Text style={styles.textHello}>Thể loại mượn nhiều nhất</Text>
+            <Text style={styles.textHello}>Thể loại sách </Text>
             <View>
                 <FlatList
                     data={listType}
