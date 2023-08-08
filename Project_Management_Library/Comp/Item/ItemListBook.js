@@ -27,10 +27,13 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         backgroundColor: '#D9D9D9',
         flexDirection: 'row',
-        margin: 10
+        margin: 10,
     },
     img: {
         width: 80,
         height: 80,
+        borderTopLeftRadius: 15,
+        borderBottomLeftRadius: 15,
+        resizeMode:'contain',
     }
 })

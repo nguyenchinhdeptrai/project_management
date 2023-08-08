@@ -29,13 +29,15 @@ const Login = ({ navigation }) => {
             .then(data => {
                 // Xử lý phản hồi từ server.
                 if (data.token) {
-                    // Đăng nhập thành công, thực hiện điều hướng đến màn hình 'TabNav'.
-                    Alert.alert('Thông báo', 'Đăng nhập thành công');
                     // Lưu token vào AsyncStorage
                     AsyncStorage.setItem('userToken', data.token)
                         .then(() => {
                             // Điều hướng đến màn hình 'TabNav' sau khi đã lưu token thành công
+
+                            setPhone('');
+                            setPassword('');
                             navigation.navigate('TabNav');
+
                         })
                         .catch(error => {
                             Alert.alert('Lỗi', 'Đã xảy ra lỗi khi lưu token');
@@ -51,6 +53,7 @@ const Login = ({ navigation }) => {
                 Alert.alert('Lỗi', 'Đã xảy ra lỗi khi gọi API đăng nhập');
                 console.error('API Error:', error);
             });
+
     }
     //chưa dùng đăng nhập
 
@@ -60,11 +63,11 @@ const Login = ({ navigation }) => {
             <View style={styles.viewFromLogin}>
                 <View style={styles.viewTextinput}>
                     <Text style={{ color: 'gray' }}>Số điện thoại</Text>
-                    <TextInput placeholder='' style={styles.textInput} onChangeText={(text) => setPhone(text)} />
+                    <TextInput placeholder='' style={styles.textInput} onChangeText={(text) => setPhone(text)} value={phone} />
                 </View>
                 <View style={styles.viewTextinput}>
                     <Text style={{ color: 'gray' }}>Mật khẩu</Text>
-                    <TextInput placeholder='' style={styles.textInput} onChangeText={(text) => setPassword(text)} />
+                    <TextInput placeholder='' style={styles.textInput} secureTextEntry={true} onChangeText={(text) => setPassword(text)} value={password} />
                 </View>
                 <Text style={styles.textForgotpassword} onPress={() => navigation.navigate('ChangePass')}>Quên mật khẩu</Text>
             </View>

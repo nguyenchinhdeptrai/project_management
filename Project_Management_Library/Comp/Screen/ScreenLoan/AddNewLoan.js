@@ -6,6 +6,7 @@ import { format, differenceInDays } from 'date-fns';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import queryString from 'query-string';
 import { API_IP } from '../../config';
+import { Alert } from 'react-native';
 
 
 
@@ -15,7 +16,10 @@ const AddNewLoan = ({ route, navigation }) => {
     //
     const [name, setName] = useState(item.name);
     const [author, setAuthor] = useState(item.author);
-    const [nameThuThu , setNameThuThu] = useState('');
+    const [nameThuThu, setNameThuThu] = useState('');
+    //
+    const [nameMember, setNameMember] = useState('');
+    const [phoneMember, setPhoneMember] = useState('');
     //get day
     const [returnDate, setReturnDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
@@ -39,7 +43,7 @@ const AddNewLoan = ({ route, navigation }) => {
 
     const calculatePrice = () => {
         const daysDiff = differenceInDays(returnDate, new Date());
-        const pricePerDay = 100000;
+        const pricePerDay = 30000;
         const totalPrice = daysDiff * pricePerDay;
         console.log('daysDiff:', daysDiff);
         console.log('totalPrice:', totalPrice);
@@ -101,6 +105,57 @@ const AddNewLoan = ({ route, navigation }) => {
         }
     };
 
+    //function check phone member
+    const isValidatePhoneNumber = (phone) => {
+        const phoneRegex = /^\d{10}$/;
+        return phoneRegex.test(phone);
+    }
+
+    //function add new loadn
+    const addNewLoadn = async () => {
+        if (!nameMember || !phoneMember) {
+            Alert.alert('Lỗi', 'Dữ liệu người mượn sách không hợp lệ');
+            return;
+        }
+        if (!isValidatePhoneNumber(phoneMember)) {
+            Alert.alert('Lỗi', 'Số điện thoại không đúng định dạng');
+            return;
+        }
+
+        const dataNewLoan = new URLSearchParams({
+            userName: nameThuThu,
+            bookTitle: name,
+            librarianName: nameMember,
+            startDate: currentDate,
+            endDate: formatDate(returnDate),
+            phoneUser: phoneMember,
+            price: totalPrice,
+            status: 'no',
+        }).toString();
+
+        try {
+            const response = await fetch(`http://${API_IP}:3000/api/addloan`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: dataNewLoan,
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                const errorMessage = errorData.error || 'Lỗi mạng';
+                throw new Error(errorMessage);
+            }
+
+            const dataLoan = await response.json();
+            console.log(dataLoan + ' data ');
+            Alert.alert('Thành công', 'Tạo phiếu mượn thành công');
+        } catch (error) {
+            console.error(error + ' lỗi phần catch');
+            Alert.alert('Lỗi', 'Đã xảy ra lỗi: ' + error.message);
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -131,11 +186,11 @@ const AddNewLoan = ({ route, navigation }) => {
             <View style={styles.viewContent2}>
                 <View style={styles.viewContent2Info}>
                     <Text>Người mượn </Text>
-                    <TextInput placeholder="" style={styles.textInput2} />
+                    <TextInput placeholder="" style={styles.textInput2} onChangeText={(text) => setNameMember(text)} />
                 </View>
                 <View style={styles.viewContent2Info}>
                     <Text>Số điện thoại </Text>
-                    <TextInput placeholder="" style={styles.textInput2} />
+                    <TextInput placeholder="" style={styles.textInput2} onChangeText={(text) => setPhoneMember(text)} />
                 </View>
                 <View style={styles.viewDay}>
                     <View style={{ width: '50%' }}>
@@ -182,7 +237,7 @@ const AddNewLoan = ({ route, navigation }) => {
                 </View>
 
             </View>
-            <TouchableOpacity style={styles.btnCreateLoan}>
+            <TouchableOpacity style={styles.btnCreateLoan} onPress={addNewLoadn}>
                 <Text style={styles.textBtn}>Tạo phiếu</Text>
             </TouchableOpacity>
         </View>

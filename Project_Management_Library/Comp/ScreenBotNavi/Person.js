@@ -3,18 +3,27 @@ import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import queryString from 'query-string';
 import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_IP } from '../config';
+
+
+
 const Person = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  //function logout
-  const callLogin = () => {
-    navigation.navigate('Login');
-  };
+  //infomation user
+  const [nameUser, setNameUser] = useState('');
+  const [statusUser, setStatusUser] = useState('');
+  const [image, setImage] = useState('');
+  //useState data
+  const [dataAll, setDataAll] = useState('');
+
+
   const Lougout = () => {
     Alert.alert('Cảnh báo', 'Bạn có muốn đăng xuất không', [
       {
         text: 'CÓ',
-        onPress: callLogin,
+        onPress: handleLogout,
       },
       {
         text: 'Không',
@@ -22,6 +31,67 @@ const Person = ({ navigation }) => {
       }
     ]);
   };
+  //function logout
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('userToken');
+      navigation.navigate('Login')
+    } catch (e) {
+      console.log(e + ' lỗi đăng xuất');
+    }
+  };
+
+  //function get infomation user
+  const getInfoUserLogin = async () => {
+    try {
+      // Lấy token từ AsyncStorage
+      const token = await AsyncStorage.getItem('userToken');
+      console.log(token + ' đây là token');
+      if (!token) {
+        console.log('Token không tồn tại hoặc đã hết hạn.');
+        return;
+      }
+
+      const tokenCheck = {
+        token: token
+      }
+
+      // Chuyển đổi dữ liệu thành x-www-form-urlencoded
+      const formData = queryString.stringify(tokenCheck);
+
+      // Gửi yêu cầu API với phần x-www-form-urlencoded
+      const response = await fetch(`http://${API_IP}:3000/api/accurary`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData,
+      });
+      console.log(response + ' đây là respoen');
+
+      // Xử lý phản hồi từ server
+      if (!response.ok) {
+        throw new Error('Lỗi khi gọi API');
+      }
+
+      const responseData = await response.json();
+      console.log('Thông tin người dùng:', responseData.data);
+      console.log('name user login: ' + responseData.data.name);
+      setNameUser(responseData.data.name);
+      setStatusUser(responseData.data.status);
+      setImage(responseData.data.img);
+      setDataAll(responseData.data)
+    } catch (e) {
+      console.log(e + " lỗi khi call api");
+    }
+  };
+
+  // hook load return function 
+  React.useEffect(() => {
+    getInfoUserLogin();
+  }, []);
+
+
   return (
     <View style={styles.container}>
       <View style={styles.viewTitle}>
@@ -33,10 +103,13 @@ const Person = ({ navigation }) => {
         </View>
         <View style={styles.viewInffo}>
           <View style={styles.viewInfo1}>
-            <Image source={require('../../assets/imgupdate.png')} style={styles.imgInfo} />
+            {image ?
+              <Image source={{ uri: image }} style={styles.imgInfo} /> :
+              <Image source={require('../../assets/imgupdate.png')} style={styles.imgInfo} />}
+
             <View style={styles.viewTextInfo}>
-              <Text style={styles.textTitleName}>Nguyễn Chính</Text>
-              <Text style={styles.textTitleStatus}>Thủ thư</Text>
+              <Text style={styles.textTitleName}>{nameUser}</Text>
+              <Text style={styles.textTitleStatus}>{statusUser}</Text>
             </View>
           </View>
           <View style={styles.viewTextEmail}>
@@ -47,7 +120,7 @@ const Person = ({ navigation }) => {
           </View>
           <Text style={styles.textEstablish}>Thiết lập tài khoản</Text>
           <View style={styles.viewChangeProfile}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('ChangeInfo', { data: dataAll })}>
               <View style={styles.viewChangP}>
                 <Text style={styles.textChangeP}>Chỉnh sửa thông tin</Text>
                 <View style={{ alignItems: 'flex-end', alignItems: 'center', paddingTop: 5, }}>
@@ -55,7 +128,7 @@ const Person = ({ navigation }) => {
                 </View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('ChangePassPerson', { data: dataAll })}>
               <View style={styles.viewChangP}>
                 <Text style={styles.textChangeP}>Đổi mật khẩu</Text>
                 <View style={{ alignItems: 'flex-end', alignItems: 'center', paddingTop: 5, }}>
@@ -110,7 +183,6 @@ const Person = ({ navigation }) => {
           <View style={styles.viewBtnLogout}>
             <TouchableOpacity style={styles.btnLogout} onPress={Lougout}>
               <View style={styles.viewBtnLogou}>
-                <Image source={require('../../assets/logout.png')} />
                 <Text style={styles.textBtnLogout}>Đăng xuất</Text>
               </View>
             </TouchableOpacity>
@@ -173,6 +245,7 @@ const styles = StyleSheet.create({
   }, imgInfo: {
     width: 70,
     height: 70,
+    borderRadius: 45,
   }, viewTextInfo: {
     marginLeft: 20,
   }, textTitleName: {
@@ -210,12 +283,12 @@ const styles = StyleSheet.create({
   }, btnLogout: {
     width: '50%',
     height: 45,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#C78D7A',
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
   }, textBtnLogout: {
-    color: 'black',
+    color: 'white',
     padding: 5,
   }, viewBtnLogout: {
     alignItems: 'center',
