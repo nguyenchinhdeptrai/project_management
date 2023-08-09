@@ -23,7 +23,6 @@ exports.addUser = async (req, res, next) => {
     if (!phone || !name || !img || !address || !password) {
         return res.json({ status: 0, message: 'Dữ liệu không hợp lệ' });
     }
-    // update 
     try {
 
         const validateUser = await mduser.findOne({ phone });
