@@ -10,12 +10,15 @@ const TypeBook = ({ navigation }) => {
     const [isLoading, setisLoading] = useState(false);
     const [listTypeBook, setlistTypeBook] = useState([]);
 
+    const [countTypeBook, setCountTypeBook] = useState('');
+
     const getData = () => {
         fetch(url)
             .then((response) => response.json())
             .then((json) => {
                 console.log(json);
                 setlistTypeBook(json)
+                setCountTypeBook(json.count);
             })
             .catch((err) => {
                 console.log(err);
@@ -50,7 +53,7 @@ const TypeBook = ({ navigation }) => {
                 </View>
             </View>
             <View style={styles.viewRow}>
-                <Text style={styles.textFill}>10 sản phẩm</Text>
+                <Text style={styles.textFill}>{countTypeBook} Loại sách</Text>
                 <Icon name='filter' color={'#CB9180'} size={24} style={styles.iconFill}></Icon>
             </View>
             <TouchableOpacity

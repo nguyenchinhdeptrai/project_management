@@ -7,6 +7,7 @@ import { Alert } from 'react-native';
 import { API_IP } from '../../config';
 import queryString from 'query-string';
 
+
 const AddTypeBook = ({ navigation }) => {
     const [name, setname] = useState("");
 
@@ -41,18 +42,24 @@ const AddTypeBook = ({ navigation }) => {
                     }
                 }
                 throw new Error(errorMessage);
+            } else {
+                const data = await response.json();
+                console.log(data.message + ' check');
+                if (data.status = 1) {
+                    return Alert.alert("Lỗi " , data.message)
+                } else {
+                    Alert.alert('Thành công', 'Thêm loại sách thành công', navigation.navigate('TypeBook'));
+                    setname("");
+                }
+
             }
 
-            const data = await response.json();
-            console.log(data);
-
-            Alert.alert('Thành công', 'Thêm loại sách thành công', navigation.navigate('TypeBook'));
-            setname("");
-            console.log('Data successfully uploaded');
         } catch (error) {
+            Alert.alert("Lỗi", error.message);
             console.error(error);
         }
     }
+
     return (
         <View style={styles.container}>
             <View style={styles.title}>

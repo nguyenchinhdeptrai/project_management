@@ -9,13 +9,15 @@ const Book = ({ navigation }) => {
   const url = `http://${API_IP}:3000/api/books`;
   const [isLoading, setisLoading] = useState(false);
   const [listBook, setlistBook] = useState([]);
+  //count books
+  const [countBook, setCountBook] = useState('');
 
   const getData = () => {
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
         setlistBook(json);
-        console.log(json);
+        setCountBook(json.count);
       })
       .catch((err) => {
         console.log(err);
@@ -39,7 +41,7 @@ const Book = ({ navigation }) => {
         <Text style={styles.textTitle}>Sách</Text>
       </View>
       <View style={styles.viewRow}>
-        <Text style={styles.textFill}>10 sản phẩm</Text>
+        <Text style={styles.textFill}>{countBook} sản phẩm</Text>
         <Icon name='funnel' color={'#CB9180'} size={24} style={styles.iconFill}></Icon>
       </View>
       <View style={styles.viewRow}>

@@ -1,14 +1,13 @@
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, Switch } from 'react-native'
 import React, { useState } from 'react'
-import Icon from 'react-native-vector-icons/FontAwesome';
 import queryString from 'query-string';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_IP } from '../config';
 
 
+const Person = ({ navigation, route }) => {
 
-const Person = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   //infomation user
@@ -17,6 +16,7 @@ const Person = ({ navigation }) => {
   const [image, setImage] = useState('');
   //useState data
   const [dataAll, setDataAll] = useState('');
+
 
 
   const Lougout = () => {
@@ -35,6 +35,7 @@ const Person = ({ navigation }) => {
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('userToken');
+      console.log(AsyncStorage.getItem('userToken'));
       navigation.navigate('Login')
     } catch (e) {
       console.log(e + ' lỗi đăng xuất');
@@ -46,7 +47,6 @@ const Person = ({ navigation }) => {
     try {
       // Lấy token từ AsyncStorage
       const token = await AsyncStorage.getItem('userToken');
-      console.log(token + ' đây là token');
       if (!token) {
         console.log('Token không tồn tại hoặc đã hết hạn.');
         return;
@@ -67,7 +67,6 @@ const Person = ({ navigation }) => {
         },
         body: formData,
       });
-      console.log(response + ' đây là respoen');
 
       // Xử lý phản hồi từ server
       if (!response.ok) {
@@ -75,8 +74,6 @@ const Person = ({ navigation }) => {
       }
 
       const responseData = await response.json();
-      console.log('Thông tin người dùng:', responseData.data);
-      console.log('name user login: ' + responseData.data.name);
       setNameUser(responseData.data.name);
       setStatusUser(responseData.data.status);
       setImage(responseData.data.img);
@@ -90,6 +87,7 @@ const Person = ({ navigation }) => {
   React.useEffect(() => {
     getInfoUserLogin();
   }, []);
+
 
 
   return (
@@ -108,6 +106,7 @@ const Person = ({ navigation }) => {
               <Image source={require('../../assets/imgupdate.png')} style={styles.imgInfo} />}
 
             <View style={styles.viewTextInfo}>
+
               <Text style={styles.textTitleName}>{nameUser}</Text>
               <Text style={styles.textTitleStatus}>{statusUser}</Text>
             </View>

@@ -13,18 +13,23 @@ const Tab = createBottomTabNavigator();
 
 const TabNav = ({ route }) => {
 
-
+    useEffect(() => {
+        if (route.params) {
+            const { name, img } = route.params;
+            //console.log(name + ' check: ' + img);
+        }
+    }, [route.params]);
     return (
         <Tab.Navigator
             initialRouteName={"Trang chủ"}
-            screenOptions={{
+            screenOptions={() => ({
                 headerShown: false,
                 keyboardHidesTabBar: false,
                 tabBarActiveTintColor: '#97240090',
                 tabBarInactiveTintColor: '#4B4B4B',
-                tabBarLabelStyle: { fontSize: 12, },
+                tabBarLabelStyle: { fontSize: 12 },
 
-            }}>
+            })}>
 
             <Tab.Screen name={"Trang Chủ"} component={Home}
                 options={{
@@ -44,13 +49,16 @@ const TabNav = ({ route }) => {
                 }}
             />
 
-            <Tab.Screen name={"Cá nhân"} component={Person}
+            <Tab.Screen name={"Cá nhân"}
+                component={Person}
                 options={{
                     tabBarIcon: ({ color, size }) => <Ionicons name='person' color={color} size={size} />
                 }}
+                initialParams={route.params}
             />
         </Tab.Navigator>
     )
+
 }
 
 export default TabNav;

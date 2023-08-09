@@ -2,7 +2,7 @@ const mduser = require('../../model/modeluser');
 
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://phungchikien196:Qa4168ciXnRnjV9G@apppolylib.5gjczzc.mongodb.net/PolyLib?retryWrites=true&w=majority";
-
+const { use } = require('../../router/member.route');
 
 //list user
 exports.listUser = async (req, res, next) => {
@@ -59,6 +59,60 @@ exports.deleteUser = async (req, res, next) => {
 };
 //api chagne infomaton uesr
 
-exports.changeProfileUser = async (req, res, next) => { };
+exports.changeProfileUser = async (req, res, next) => {
+    const { _id, name, img, phone, address } = req.body;
+    if (!name || !phone || !address || !img) {
+        return res.json({ status: 0, message: 'Dữ liêu không hợp lệ' });
+    }
+    const updateInfo = {
+        name: name,
+        phone: phone,
+        address: address,
+        img: img
+    };
+    // if (name) updateInfo.name = name;
+    // if (phone) updateInfo.phone = phone;
+    // if (address) updateInfo.address = address;
+    // if (img) updateInfo.img = img;
+    console.log(updateInfo);
+    try {
+        const changeIno = await mduser.findByIdAndUpdate(_id, updateInfo, { new: true });
+
+        if (!changeIno) {
+            return res.json({ status: 0, message: 'không tìm thấy thông tin ' });
+        }
+        return res.json({ status: 1, message: 'cập nhật thành công', data: changeIno });
+    } catch (e) {
+        console.log(e);
+    }
+};
+//check password
+exports.checkPassword = async (req, res, next) => {
+    const { old, newP, returnP, _id } = req.body;
+    if (!old || !newP || !returnP) {
+        return res.json({ status: 4, message: 'dữ liệu không hợp lệ' });
+    };
+    try {
+        const user = await mduser.findOne({ _id: _id });
+        if (!user) {
+            return res.json({ status: 3, message: 'người dùng không họp lệ' });
+        }
+        if (user.password !== old) {
+            return res.json({ status: 1, message: 'mật khẩu cũ không trùng khớp' });
+        }
+        if (newP !== returnP) {
+            return res.json({ status: 2, message: '2 mật khẩu không trùng khớp' });
+        } else {
+            user.password = returnP;
+            await user.save();
+            return res.json({ status: 0, message: 'đổi thành công' });
+        }
+
+
+    } catch (e) {
+        console.log(e);
+    }
+
+};
 
 

@@ -76,6 +76,9 @@ const AddBook = ({ navigation }) => {
             }
 
             const data = await response.json();
+            if(data.status = 1){
+               return Alert.alert("Lỗi:" , data.message);
+            }
             console.log(data);
 
             Alert.alert('Thành công', 'Thêm sách thành công', navigation.navigate('Sách'));
