@@ -23,8 +23,15 @@ exports.addUser = async (req, res, next) => {
     if (!phone || !name || !img || !address || !password) {
         return res.json({ status: 0, message: 'Dữ liệu không hợp lệ' });
     }
-    const user = new mduser({ name, phone, img, address, password, status, });
+
     try {
+
+        const validateUser = await mduser.findOne({ phone });
+        if (validateUser) {
+            return res.json({ status: 1, message: 'Thủ thư này đã tồn tại ' });
+        }
+
+        const user = new mduser({ name, phone, img, address, password, status, });
         const result = await user.save();
         res.json({ status: 1, message: 'Thêm thành công', data: result });
     } catch (err) {
