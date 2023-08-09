@@ -22,4 +22,6 @@ router.get('/member', api_member.listMember);
 router.post('/addmember', api_member.addMember);
 router.put('/updatemember', api_member.updateMember);
 router.delete('/deletemember', api_member.deleteMember);
+
+router.get('/checkPhoneMember', api_member.checkPhoneMember)
 module.exports = router;

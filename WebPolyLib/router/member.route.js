@@ -13,7 +13,12 @@ router.post('/addmember', memberControllers.add)
 router.get('/updatemember', memberControllers.layoutupdate)
 router.post('/updatemember', memberControllers.update)
 
+
+
+
 router.post('/getIdMember', memberControllers.getId)
 
 router.post('/deletemember', memberControllers.deletemember)
+
+
 module.exports = router;

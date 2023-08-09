@@ -37,6 +37,18 @@ const AddMember = ({ navigation }) => {
         }
 
         try {
+            //Check trùng phone
+            const responsePhone = await fetch(`http://${API_IP}:3000/api/checkPhoneMember?phone=${phone}`);
+            if (!responsePhone.ok) {
+                throw new Error('Lỗi mạng khi kiểm tra trùng dữ liệu');
+            }
+            const duplicateCheckResult = await responsePhone.json();
+
+            if (duplicateCheckResult.isDuplicate) {
+                Alert.alert('Lỗi', 'Số điện thoại đã tồn tại trong dữ liệu');
+                return;
+            }
+
             const formData = queryString.stringify(dataToSend);
             const response = await fetch(`http://${API_IP}:3000/api/addmember`, {
                 method: 'POST',
