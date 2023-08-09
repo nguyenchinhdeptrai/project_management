@@ -44,7 +44,7 @@ export default function App() {
         <Stack.Screen name='AddNewLoan' component={AddNewLoan} options={{ headerShown: false }} />
         <Stack.Screen name='ChangeInfo' component={ChagneInfo} options={{ headerShown: false }} />
         <Stack.Screen name='ChangePassPerson' component={ChangePassPerson} options={{ headerShown: false }} />
-
+      
       </Stack.Navigator>
     </NavigationContainer>
   );

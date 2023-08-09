@@ -72,7 +72,7 @@ const Login = ({ navigation }) => {
                 <Text style={styles.textForgotpassword} onPress={() => navigation.navigate('ChangePass')}>Quên mật khẩu</Text>
             </View>
             <View style={styles.viewButtonLogin} >
-                <TouchableOpacity style={styles.btnLogin} onPress={LoginApp}>
+                <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate('TabNav')}>
                     <Text style={{ color: 'white', fontSize: 15 }} >Đăng Nhập</Text>
                 </TouchableOpacity>
             </View>

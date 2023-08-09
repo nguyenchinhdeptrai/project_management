@@ -5,8 +5,8 @@ const dataUserSchema = new mongoose.Schema(
         name: { type: String, required: true },
         phone: { type: String, required: true },
         address: { type: String, required: true },
-        status: { type: String, required: true},
-        password: { type: String, required: true},
+        status: { type: String, },
+        password: { type: String, },
         img: { type: String, required: true },
         
     },

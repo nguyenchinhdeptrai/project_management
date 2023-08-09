@@ -6,9 +6,9 @@ const uri = "mongodb+srv://phungchikien196:Qa4168ciXnRnjV9G@apppolylib.5gjczzc.m
 exports.listTypeBook = async (req, res, next) => {
     await mongoose.connect(uri);
     let ds = await md.find();
-    console.log(ds + " list book");
+    console.log(ds.length + " list book");
     if (ds) {
-        return res.status(200).json({ data: ds, check: 'có dữ liệu' });
+        return res.status(200).json({ data: ds, check: 'có dữ liệu', count: ds.length });
     }
     else {
         return res.status(404).json({ check: 'không có dữ liệu' });
@@ -20,8 +20,14 @@ exports.addTypeBook = async (req, res, next) => {
     if (!name) {
         return res.json({ status: 0, message: 'Dữ liệu không hợp lệ' });
     }
-    const typeBook = new md({ name });
+
     try {
+        const validateNameType = await md.findOne({ name });
+        if (validateNameType) {
+            return res.json({ status: 0, message: 'Tên loại sách đã có trong cơ sở dữ liệu' })
+        };
+
+        const typeBook = new md({ name });
         const result = await typeBook.save();
         res.json({ status: 1, message: 'Thêm loại sách thành công', data: result });
     } catch (err) {

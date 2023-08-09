@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native'
 import React, { useState } from 'react'
-
+import { API_IP } from '../../config';
+import { Alert } from 'react-native';
+import queryString from 'query-string';
+import { da } from 'date-fns/locale';
 
 const ChagneInfo = ({ route, navigation }) => {
 
@@ -11,8 +14,44 @@ const ChagneInfo = ({ route, navigation }) => {
     const [img, setImg] = useState(data.img);
     const [phone, setPhone] = useState(data.phone);
     const [address, setAddress] = useState(data.address);
-    //function cancle
 
+    //function update
+    const changeProfile = async () => {
+        let obChange = { name: name, img: img, phone: phone, address: address, _id: data._id };
+        console.log(data._id + ' check id');
+        try {
+            const fromChangeInfo = queryString.stringify(obChange);
+            console.log(fromChangeInfo + ' check from change');
+            const response = await fetch(`http://${API_IP}:3000/api/changeprofile`, {
+                method: 'PUT',
+                body: fromChangeInfo,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                }
+            });
+            if (!response.ok) {
+                let errorMessage = 'Lỗi mạng';
+                if (response.status === 400) {
+                    const errorData = await response.json(); // Trích xuất dữ liệu lỗi từ phản hồi JSON
+                    if (errorData && errorData.message) {
+                        errorMessage = errorData.message; // Lấy thông báo lỗi cụ thể từ dữ liệu phản hồi JSON (nếu có)
+                    }
+                }
+                throw new Error(errorMessage);
+            }
+            const data = await response.json();
+            console.log(data + ' check data 2 ');
+
+            Alert.alert("Thành công", "Cập nhật thông tin thành công");
+
+            navigation.navigate('TabNav', { name: name, img: img });
+        } catch (e) {
+            Alert.alert("Lỗi", e)
+        }
+    }
+    //
+
+    //function cancel
     const CancleFunction = () => {
         setName("");
         setImg("");
@@ -44,17 +83,17 @@ const ChagneInfo = ({ route, navigation }) => {
                     <View style={{ width: '75%', marginBottom: -7 }}>
                         <Text>Địa chỉ </Text>
                     </View>
-                    <TextInput placeholder='Nhập tên người dùng' value={address} onChangeText={(text) => setName(text)} style={styles.textInput} />
+                    <TextInput placeholder='Nhập tên người dùng' value={address} onChangeText={(text) => setAddress(text)} style={styles.textInput} />
                 </View>
                 <View style={styles.viewTextInput}>
                     <View style={{ width: '75%', marginBottom: -7 }}>
                         <Text>Điện thoại </Text>
                     </View>
-                    <TextInput placeholder='Nhập tên người dùng' value={phone} onChangeText={(text) => setName(text)} style={styles.textInput} />
+                    <TextInput placeholder='Nhập tên người dùng' value={phone} onChangeText={(text) => setPhone(text)} style={styles.textInput} />
                 </View>
             </View>
             <View style={styles.viewFooter}>
-                <TouchableOpacity style={[styles.btnFooter2, {}]}>
+                <TouchableOpacity style={[styles.btnFooter2, {}]} onPress={changeProfile}>
                     <Text style={[styles.textBtn, { color: 'white' }]}>Lưu</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.btnFooter1]} onPress={CancleFunction}>
