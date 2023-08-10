@@ -18,7 +18,7 @@ import ListMember from './Comp/Screen/ScreenMember/ListMember';
 import AddNewLoan from './Comp/Screen/ScreenLoan/AddNewLoan';
 import ChagneInfo from './Comp/Screen/ScreenPerson/ChagneInfo';
 import ChangePassPerson from './Comp/Screen/ScreenPerson/ChangePassPerson';
-
+import DetailMember from './Comp/Screen/ScreenMember/DetailMember';
 
 
 
@@ -44,7 +44,7 @@ export default function App() {
         <Stack.Screen name='AddNewLoan' component={AddNewLoan} options={{ headerShown: false }} />
         <Stack.Screen name='ChangeInfo' component={ChagneInfo} options={{ headerShown: false }} />
         <Stack.Screen name='ChangePassPerson' component={ChangePassPerson} options={{ headerShown: false }} />
-      
+        <Stack.Screen name='DetailMember' component={DetailMember} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

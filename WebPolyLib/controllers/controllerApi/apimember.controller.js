@@ -64,3 +64,18 @@ exports.deleteMember = async (req, res, next) => {
         res.json({ status: 0, message: 'Xóa thất bại', error: err.message });
     }
 };
+
+//Check trùng phone 
+exports.checkPhoneMember = async (req, res, next) => {
+    try {
+        const phone = req.query.phone;
+        const existingMember = await mdmember.findOne({ phone: phone });
+        if (existingMember) {
+            return res.json({ isDuplicate: true });
+        }
+        res.json({ isDuplicate: false });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};

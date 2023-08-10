@@ -4,17 +4,19 @@ import { API_IP } from '../../config';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import queryString from 'query-string';
 import ItemListMember from '../../Item/ItemListMember';
+import { RefreshControl } from 'react-native';
 
 
 
 const ListMember = ({ navigation }) => {
     const [listMember, setListMember] = useState([]);
+    const [isLoading, setisLoading] = useState(false);
     //
     // Function to handle member deletion
-    const onDeleteMember = (_id) => {
+    // const onDeleteMember = (_id) => {
 
-        setListMember((prevData) => prevData.filter((member) => member._id !== _id));
-    };
+    //     setListMember((prevData) => prevData.filter((member) => member._id !== _id));
+    // };
 
     const fetchListMember = (linkAPI) => {
         return fetch(linkAPI)
@@ -36,14 +38,25 @@ const ListMember = ({ navigation }) => {
                 throw error;
             });
     };
-    useEffect(() => {
+    const getData = () => {
         const apiListMember = `http://${API_IP}:3000/api/member`;
         fetchListMember(apiListMember)
             .then((data) => setListMember(data))
             .catch((error) => {
                 console.log(error + " lỗi fetch link");
             });
-    }, []);
+    }
+    useEffect(() => {
+        getData();
+    }, [listMember]);
+
+    const reloadData = React.useCallback(() => {
+        getData();
+        setisLoading(true);
+        setTimeout(() => {
+            setisLoading(false);
+        }, 1000);
+    })
     return (
         <View style={styles.contaier}>
             <View style={styles.viewTitle}>
@@ -56,8 +69,9 @@ const ListMember = ({ navigation }) => {
             </View>
             <View style={styles.viewList}>
                 <FlatList
+                    refreshControl={<RefreshControl refreshing={isLoading} onRefresh={reloadData} />}
                     data={listMember}
-                    renderItem={({ item }) => <ItemListMember item={item} onDeleteMember={onDeleteMember} />}
+                    renderItem={({ item }) => <ItemListMember item={item} navigation={navigation} />}
                     keyExtractor={(item) => item.id}
                     numColumns={2} // Set the number of columns to 2
                 />
@@ -73,19 +87,23 @@ const styles = StyleSheet.create({
     contaier: {
         flex: 1,
         alignItems: 'center',
-        marginTop: 25,
+
     }, viewTitle: {
         flexDirection: 'row',
         backgroundColor: '#C78D7A',
-        height: 50,
+        height: 80,
         width: '100%',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 25,
+        paddingRight: 8
     }, btnBack: {
         flex: 1,
+        paddingLeft: 14
     }, textTitle: {
         fontSize: 20,
         fontWeight: 'bold',
-        flex: 5,
+        flex: 6,
         color: 'white'
     }, viewList: {
 

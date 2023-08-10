@@ -69,10 +69,10 @@ function Home({ navigation }) {
         //fetch list type book
         const apiListTypeBook = `http://${API_IP}:3000/api/typebook`;
         fetchListTypeBook(apiListTypeBook)
-        .then((data)=> setListType(data))
-        .catch((error) => {
-            console.log(error + ' lỗi lấy dữ liệu');
-        });
+            .then((data) => setListType(data))
+            .catch((error) => {
+                console.log(error + ' lỗi lấy dữ liệu');
+            });
 
         // Gọi API để lấy dữ liệu JSON
         fetch(`http://${API_IP}:3000/api/member`)
@@ -125,6 +125,7 @@ function Home({ navigation }) {
 
 
     ]
+    
     return (
         <View style={styles.container}>
             <View style={styles.title}>
@@ -142,7 +143,12 @@ function Home({ navigation }) {
                     <Text>10</Text>
                 </View>
             </View>
-            <Text style={styles.textHello} onPress={() => navigation.navigate('ListMember')}>Danh sách thành viên</Text>
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.textHello} >Danh sách thành viên</Text>
+                <TouchableOpacity style={{ marginVertical: 16, marginLeft: 86 }} onPress={() => navigation.navigate('ListMember')}>
+                    <Text style={{color: "#008ECB"}}>Xem tất cả</Text>
+                </TouchableOpacity>
+            </View>
             <View>
                 <FlatList
                     data={dataMember}

@@ -17,13 +17,13 @@ exports.layoutadd = (req, res) => {
     })
 }
 exports.add = async (req, res) => {
-    const { memberID, name, address, phone, img } = req.body;
+    const { name, address, phone, img } = req.body;
 
     var phoneNumberRegex = /^[0-9]{10}$/;
 
-    let objMember = { memberID: memberID, name: name, address: address, phone: phone, img: img };
+    let objMember = { name: name, address: address, phone: phone, img: img };
 
-    if (!memberID || !name || !address || !phone || !img) {
+    if (!name || !address || !phone || !img) {
         console.log("Chưa đủ thông tin");
         return res.send('<script>alert("Chưa đủ thông tin."); window.location="/addmember";</script>');
     } else if (isNaN(phone)) {
@@ -49,13 +49,13 @@ exports.layoutupdate = async (req, res) => {
     })
 }
 exports.update = async (req, res) => {
-    const { memberID, name, address, phone, img } = req.body;
+    const { name, address, phone, img } = req.body;
 
     var phoneNumberRegex = /^[0-9]{10}$/;
 
-    let objMember = { memberID: memberID, name: name, address: address, phone: phone, img: img };
+    let objMember = {  name: name, address: address, phone: phone, img: img };
 
-    if (!memberID || !name || !address || !phone || !img) {
+    if ( !name || !address || !phone || !img) {
         console.log("Chưa đủ thông tin");
         return res.send('<script>alert("Chưa đủ thông tin."); window.location="/updatemember";</script>');
     } else if (isNaN(phone)) {

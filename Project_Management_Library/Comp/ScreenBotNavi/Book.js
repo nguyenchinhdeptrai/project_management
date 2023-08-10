@@ -34,7 +34,7 @@ const Book = ({ navigation }) => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [listBook]);
   return (
     <View style={styles.container}>
       <View style={styles.title}>
