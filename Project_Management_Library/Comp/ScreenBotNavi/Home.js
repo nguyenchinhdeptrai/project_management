@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { StyleSheet, Text, View, Modal, Image, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Modal, Image, TouchableOpacity, FlatList, RefreshControl } from 'react-native';
 import ItemMember from '../Item/ItemMember';
 import ItemType from '../Item/ItemType';
 import ItemListType from '../Item/ItemListType';
@@ -8,16 +8,19 @@ import ItemListType from '../Item/ItemListType';
 import { API_IP } from '../config';
 
 
-
 function Home({ navigation }) {
     //list members 1
     const [dataMember, setDataMember] = useState([]);
-    //list member 2
-    const [listMember, setListMember] = useState([]);
     //list type book
     const [listType, setListType] = useState([]);
+    //list book
+    const [listBorrowBooks, setListBorrowBooks] = useState([]);
+
+    const [refreshing, setRefreshing] = useState(false);
+
+
     //
-    const fetchListMember = (linkAPI) => {
+    const fetchListApi = (linkAPI) => {
         return fetch(linkAPI)
             .then((response) => {
                 if (!response.ok) {
@@ -37,13 +40,14 @@ function Home({ navigation }) {
                 throw error;
             });
     };
-    const fetchListTypeBook = (linkAPI) => {
+
+    //function fectch list borrowed books
+    const fetchBorrowedListBook = (linkAPI) => {
         return fetch(linkAPI)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
-                }
-                return response.json();
+                } return response.json();
             })
             .then((jsonData) => {
                 if (jsonData && jsonData.data) {
@@ -51,29 +55,42 @@ function Home({ navigation }) {
                 } else {
                     throw new Error('Invalid data format');
                 }
+
             })
             .catch((error) => {
-                console.error('Error fetching data:', error);
-                throw error;
-            });
+                console.log(error);
+            })
     };
-    useEffect(() => {
-        //
-        const apiListMember = `http://${API_IP}:3000/api/member`;
-        fetchListMember(apiListMember)
-            .then((data) => setListMember(data))
+
+    const onRefresh = () => {
+        setRefreshing(true);
+        const apiListBorrowedBook = `http://${API_IP}:3000/api/listborrower`;
+        fetchBorrowedListBook(apiListBorrowedBook)
+            .then((data) => {
+                setListBorrowBooks(data);
+            })
             .catch((error) => {
                 console.log(error + " lỗi fetch link");
             });
+        setRefreshing(false);
+    };
 
+    useEffect(() => {
         //fetch list type book
         const apiListTypeBook = `http://${API_IP}:3000/api/typebook`;
-        fetchListTypeBook(apiListTypeBook)
+        fetchListApi(apiListTypeBook)
             .then((data) => setListType(data))
             .catch((error) => {
                 console.log(error + ' lỗi lấy dữ liệu');
             });
-
+        const apiListBorrowedBook = `http://${API_IP}:3000/api/listborrower`;
+        fetchBorrowedListBook(apiListBorrowedBook)
+            .then((data) => {
+                setListBorrowBooks(data);
+            })
+            .catch((error) => {
+                console.log(error + " lỗi fetch link");
+            });
         // Gọi API để lấy dữ liệu JSON
         fetch(`http://${API_IP}:3000/api/member`)
             .then((response) => response.json())
@@ -81,7 +98,6 @@ function Home({ navigation }) {
                 if (jsonData && jsonData.data) {
                     // Giới hạn dữ liệu để chỉ có 3 sản phẩm đầu tiên
                     const limitedData = jsonData.data.slice(0, 3);
-                    console.log(jsonData + " data check");
                     // Thêm phần tử "Thêm sản phẩm" vào cuối mảng dữ liệu
                     const newData = [...limitedData, { id: 'addProduct', title: 'Thêm sản phẩm' }];
                     setDataMember(newData);
@@ -96,8 +112,6 @@ function Home({ navigation }) {
     }, []);
 
 
-    console.log('Data from API:', dataMember);
-    console.log('Full data of member list: ' + listMember);
 
     const getCurrentTime = () => {
         const currentHour = new Date().getHours();
@@ -115,17 +129,6 @@ function Home({ navigation }) {
         }
     };
 
-    //
-    const dataListType = [
-
-        { id: 1, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-        { id: 2, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-        { id: 3, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-        { id: 4, name: 'Truyện kể về anh chăn trâu', des: 'Tình cảm', count: '12', img: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
-
-
-    ]
-    
     return (
         <View style={styles.container}>
             <View style={styles.title}>
@@ -146,7 +149,7 @@ function Home({ navigation }) {
             <View style={{ flexDirection: 'row' }}>
                 <Text style={styles.textHello} >Danh sách thành viên</Text>
                 <TouchableOpacity style={{ marginVertical: 16, marginLeft: 86 }} onPress={() => navigation.navigate('ListMember')}>
-                    <Text style={{color: "#008ECB"}}>Xem tất cả</Text>
+                    <Text style={{ color: "#008ECB" }}>Xem tất cả</Text>
                 </TouchableOpacity>
             </View>
             <View>
@@ -182,9 +185,15 @@ function Home({ navigation }) {
                 />
             </View>
             <FlatList
-                data={dataListType}
-                renderItem={({ item }) => <ItemListType title={item.name} img={item.img} des={item.des} count={item.count} />}
+                data={listBorrowBooks}
+                renderItem={({ item }) => (
+                    <ItemListType title={item.bookName} img={item.bookImage} des={item.des} count={item.borrowCount} />
+                )}
                 keyExtractor={(item) => item.id}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing}
+                        onRefresh={onRefresh} />
+                }
             />
         </View>
     );

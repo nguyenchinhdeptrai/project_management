@@ -80,7 +80,7 @@ exports.changeProfileUser = async (req, res, next) => {
     // if (phone) updateInfo.phone = phone;
     // if (address) updateInfo.address = address;
     // if (img) updateInfo.img = img;
-    console.log(updateInfo);
+    console.log(updateInfo + ' check');
     try {
         const changeIno = await mduser.findByIdAndUpdate(_id, updateInfo, { new: true });
 

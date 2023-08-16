@@ -14,6 +14,7 @@ const Person = ({ navigation, route }) => {
   const [nameUser, setNameUser] = useState('');
   const [statusUser, setStatusUser] = useState('');
   const [image, setImage] = useState('');
+
   //useState data
   const [dataAll, setDataAll] = useState('');
 
@@ -74,20 +75,25 @@ const Person = ({ navigation, route }) => {
       }
 
       const responseData = await response.json();
+
       setNameUser(responseData.data.name);
       setStatusUser(responseData.data.status);
       setImage(responseData.data.img);
-      setDataAll(responseData.data)
+      setDataAll(responseData.data);
     } catch (e) {
       console.log(e + " lỗi khi call api");
     }
   };
-
-  // hook load return function 
+  const [prevDataAll, setPrevDataAll] = useState(dataAll);
   React.useEffect(() => {
-    getInfoUserLogin();
-  }, []);
-
+    
+    if (dataAll.name == prevDataAll.name) {
+      getInfoUserLogin();
+      console.log(prevDataAll.name);
+      console.log(dataAll.name + ' list 1');
+      setPrevDataAll(dataAll);
+    }
+  }, [dataAll , prevDataAll]);
 
 
   return (

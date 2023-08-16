@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
         }
         // Validate phone number contains only digits
 
-        const user = await mduser.findOne({ phone: phone });
+        const user = await mduser.findOne({ phone: phone, password:password});
         console.log(user + ' người đăng nhập');
         if (user) {
             const token = jwt.sign({ id: user._id }, secretKey);

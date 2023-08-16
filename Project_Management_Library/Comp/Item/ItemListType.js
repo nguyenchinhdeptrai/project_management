@@ -8,7 +8,7 @@ const ItemListType = ({title , img , count , des}) => {
         <View style={{padding:10}}>
             <Text>{title}</Text>
             <Text>{des}</Text>
-            <Text>Số lượng:{count}</Text>
+            <Text>Số lượng: {count}</Text>
         </View>
     </View>
   )

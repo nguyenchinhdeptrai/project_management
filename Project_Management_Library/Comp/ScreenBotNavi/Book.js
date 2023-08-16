@@ -1,9 +1,12 @@
-import { StyleSheet, Text, View, TouchableHighlight, Image, TouchableOpacity, FlatList } from 'react-native'
+import { StyleSheet, Text, View, TouchableHighlight, Image, TouchableOpacity, FlatList, Modal } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Icon from 'react-native-vector-icons/Ionicons';
+import { AntDesign } from '@expo/vector-icons';
 import ItemListBook from '../Item/ItemListBook';
 import { API_IP } from '../config';
 import { RefreshControl } from 'react-native';
+
+
+
 
 const Book = ({ navigation }) => {
   const url = `http://${API_IP}:3000/api/books`;
@@ -35,6 +38,13 @@ const Book = ({ navigation }) => {
   useEffect(() => {
     getData();
   }, [listBook]);
+  //function handle modal
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.title}>
@@ -42,7 +52,9 @@ const Book = ({ navigation }) => {
       </View>
       <View style={styles.viewRow}>
         <Text style={styles.textFill}>{countBook} sản phẩm</Text>
-        <Icon name='funnel' color={'#CB9180'} size={24} style={styles.iconFill}></Icon>
+        <TouchableOpacity onPress={toggleModal}>
+          <AntDesign name="search1" size={24} color="black" style={styles.iconFill} />
+        </TouchableOpacity>
       </View>
       <View style={styles.viewRow}>
 
@@ -71,6 +83,42 @@ const Book = ({ navigation }) => {
         keyExtractor={(item) => item.id}
         style={{ marginTop: 16 }}
       />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={toggleModal}
+      >
+        <View style={styles.modalContainer}>
+          {/* Nội dung của bottom sheet */}
+          <View style={styles.bottomSheet}>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate('ScreenSearch');
+              toggleModal();
+            }}
+              style={styles.btnChangeScreen}
+            >
+              <Text style={{ color: 'white', fontSize: 17 }}>Tìm sách theo tên</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => {
+              navigation.navigate('ScreenSearchType');
+              toggleModal();
+            }}
+              style={styles.btnChangeScreen} >
+              <Text style={{ color: 'white', fontSize: 17 }}>Tìm sách theo thể loại</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={toggleModal} style={styles.btnClose} >
+              <AntDesign name="closecircleo" size={24} color="black" />
+
+            </TouchableOpacity>
+          </View>
+
+        </View>
+      </Modal>
+
+
+
     </View >
   )
 }
@@ -99,14 +147,16 @@ const styles = StyleSheet.create({
   viewRow: {
     flexDirection: 'row',
     marginTop: 20,
-    alignSelf: 'center'
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
   },
   textFill: {
     fontSize: 20,
     textAlign: 'left',
   },
   iconFill: {
-    marginLeft: 210
+    //marginLeft: 210
   },
   textBook: {
     fontSize: 18,
@@ -126,4 +176,32 @@ const styles = StyleSheet.create({
     marginRight: 16,
     marginTop: 8,
   },
+  modalContainer: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    height: '100%'
+  },
+  bottomSheet: {
+    backgroundColor: 'white',
+    padding: 16,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }, btnChangeScreen: {
+    width: '100%',
+    height: 45,
+    backgroundColor: '#CB9180',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+    marginVertical: 5,
+  }, btnClose: {
+    width: '25%',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 })
