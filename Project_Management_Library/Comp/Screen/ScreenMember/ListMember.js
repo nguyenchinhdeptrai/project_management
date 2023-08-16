@@ -11,6 +11,8 @@ import { RefreshControl } from 'react-native';
 const ListMember = ({ navigation }) => {
     const [listMember, setListMember] = useState([]);
     const [isLoading, setisLoading] = useState(false);
+
+    const [isLoading1, setLoadding1] = useState(false);
     //
     // Function to handle member deletion
     // const onDeleteMember = (_id) => {
@@ -39,16 +41,29 @@ const ListMember = ({ navigation }) => {
             });
     };
     const getData = () => {
-        const apiListMember = `http://${API_IP}:3000/api/member`;
-        fetchListMember(apiListMember)
-            .then((data) => setListMember(data))
-            .catch((error) => {
-                console.log(error + " lỗi fetch link");
-            });
-    }
+        if (!isLoading1) {
+            setLoadding1(true); // Bắt đầu quá trình tải dữ liệu
+            const apiListMember = `http://${API_IP}:3000/api/member`;
+            fetchListMember(apiListMember)
+                .then((data) => {
+                    setListMember(data);
+                })
+                .catch((error) => {
+                    console.log(error + " lỗi fetch link");
+                })
+                .finally(() => {
+                    setLoadding1(true);
+                    console.log(isLoading1 + ' check 1');
+                });
+        }
+    };
+
     useEffect(() => {
-        getData();
-    }, [listMember]);
+        if (!isLoading1) {
+            getData();
+            console.log('my check');
+        }
+    }, [listMember, isLoading1]);
 
     const reloadData = React.useCallback(() => {
         getData();

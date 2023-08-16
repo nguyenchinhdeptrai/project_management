@@ -71,13 +71,16 @@ const AddMember = ({ navigation }) => {
 
             const data = await response.json();
             console.log(data);
+            if (data.status = 1) {
+                return Alert.alert('Lỗi', data.message);
+            }
+
             Alert.alert('Thành công', 'Thêm thành viên thành công');
             navigation.navigate('TabNav', { screen: 'Trang Chủ' });
             setImg("");
             setName("");
             setPhone("");
             setAddress("");
-            console.log('Data successfully uploaded');
         } catch (error) {
             console.error(error);
         }
@@ -94,15 +97,16 @@ const AddMember = ({ navigation }) => {
                 <View style={{ flex: 2 }}></View>
             </View>
             <View style={styles.viewContent}>
+                {img ? (
+                    <Image source={{ uri: img }} style={styles.image} />
+                ) : <Image source={require('../../../assets/choooseimg.png')} style={styles.image} />}
                 <TextInput
                     placeholder='Link ảnh'
                     value={img}
                     onChangeText={(text) => setImg(text)}
                     style={styles.textInput}
                 />
-                {img ? (
-                    <Image source={{ uri: img }} style={styles.image} />
-                ) : null}
+
                 <TextInput
                     placeholder='Tên thành viên'
                     value={name}
@@ -173,10 +177,10 @@ const styles = StyleSheet.create({
         marginVertical: 12,
     },
     image: {
-        width: 200,
-        height: 200,
+        width: 150,
+        height: 150,
         resizeMode: 'contain',
-        borderRadius: 12,
+        borderRadius: 40,
     }, viewFooter: {
         flexDirection: 'row',
     }, btnFooterSave: {

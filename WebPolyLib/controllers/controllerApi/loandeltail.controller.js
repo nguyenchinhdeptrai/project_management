@@ -22,6 +22,7 @@ exports.listLoanDeltail = async (req, res, next) => {
                     deltail.userName = user.name;
                     deltail.phoneMember = member.phone;
                     deltail.nameMember = member.name;
+                    deltail.addressMember = member.address;
                     return deltail;
                 } else {
                     deltail.bookName = "Không tìm thấy dữ liệu";
@@ -31,6 +32,7 @@ exports.listLoanDeltail = async (req, res, next) => {
                     return deltail;
                 }
             }));
+            borrowWithAdditionalInfo.reverse();
 
             return res.status(200).json({ data: borrowWithAdditionalInfo, check: 'có dữ liệu' });
         } else {
@@ -41,8 +43,48 @@ exports.listLoanDeltail = async (req, res, next) => {
     }
 };
 
+//api list book
+exports.mostBorrowerBooks = async (req, res, next) => {
+    await mongoose.connect(uri);
+    try {
+        const borrowCounts = await mdloandeltail.aggregate([
+            { $group: { _id: "$_idBook", count: { $sum: 1 } } },
+            { $sort: { count: -1 } },
+            { $limit: 10 } // Lấy 10 cuốn sách được mượn nhiều nhất
+        ]);
+
+        const mostBorrowerBooks = await Promise.all(borrowCounts.map(async (borrowCount) => {
+            const bookId = borrowCount._id.toString();
+            const book = await mdbook.findById(bookId);
+            //console.log(book + ' sách');
+            if (book) {
+                return {
+                    bookName: book.name,
+                    bookImage: book.img,
+                    borrowCount: borrowCount.count
+                };
+            } else {
+                return {
+                    bookName: 'Không tìm thấy dữ liệu',
+                    bookImage: 'Không tìm thấy dữ liệu',
+                    borrowCount: borrowCount.count
+                };
+            }
+        }));
+
+
+        return res.json({ data: mostBorrowerBooks });
+    } catch (err) {
+        console.log(err);
+        return res.json({ status: 0, error: err.message });
+    }
+};
+
+
+
 //add loand deltail
 exports.addLoand = async (req, res, next) => {
+    await mongoose.connect(uri);
     try {
         const { userName, bookTitle, librarianName, startDate, endDate, phoneUser, price, status } = req.body;
 
@@ -83,6 +125,10 @@ exports.addLoand = async (req, res, next) => {
 
         // Lưu phiếu mượn vào cơ sở dữ liệu
         const savedLoan = await newLoan.save();
+        const allLoans = await mdloandeltail.find(); // Lấy tất cả các phiếu mượn (hoặc sử dụng phương thức lấy dữ liệu của bạn)
+        console.log(allLoans + ' my check ');
+        allLoans.unshift(savedLoan); // Thêm phiếu mượn mới vào đầu mảng danh sách
+
 
         return res.status(201).json({ data: savedLoan, message: 'Thêm phiếu mượn thành công.' });
     } catch (err) {
@@ -93,7 +139,7 @@ exports.addLoand = async (req, res, next) => {
 //update
 exports.updateLoan = async (req, res, next) => {
     try {
-        const { userName, bookTitle, librarianName, startDate, endDate, phoneUser, price, status , _id } = req.body;
+        const { userName, bookTitle, librarianName, startDate, endDate, phoneUser, price, status, _id } = req.body;
 
         // Tìm id của người mượn dựa vào tên thành viên
         const user = await mduser.findOne({ name: userName });

@@ -24,8 +24,14 @@ exports.addMember = async (req, res, next) => {
     if (!phone || !name || !address) {
         return res.status(400).json({ status: 0, message: 'Dữ liệu không hợp lệ' });
     }
-    const user = new mdmember({ phone, name, address, img });
+
     try {
+        const validateMember = await mdmember.findOne({ phone });
+        if(validateMember){
+            return res.json({status: 0, message:'Thành viên đã tồn tại trong cơ sở dữ liêu'});
+        }
+
+        const user = new mdmember({ phone, name, address, img });
         const result = await user.save();
         res.status(200).json({ status: 1, message: 'Thêm thành công', data: result });
     } catch (err) {

@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         color: 'white',
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: 'bold',
         padding: 5,
         marginTop: 10

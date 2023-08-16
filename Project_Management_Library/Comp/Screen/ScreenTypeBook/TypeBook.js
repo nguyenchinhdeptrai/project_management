@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ItemType from '../../Item/ItemType';
 import { API_IP } from '../../config';
-import { RefreshControl } from 'react-native';
+import { RefreshControl } from 'react-native'; import { AntDesign } from '@expo/vector-icons';
+
 
 const TypeBook = ({ navigation }) => {
     const url = `http://${API_IP}:3000/api/typebook`;
@@ -54,13 +55,11 @@ const TypeBook = ({ navigation }) => {
             </View>
             <View style={styles.viewRow}>
                 <Text style={styles.textFill}>{countTypeBook} Loại sách</Text>
-                <Icon name='filter' color={'#CB9180'} size={24} style={styles.iconFill}></Icon>
             </View>
             <TouchableOpacity
                 style={styles.buttonBook}
                 onPress={() => navigation.navigate('AddTypeBook')} >
                 <Text style={styles.textBook}>+  Thêm loại sách</Text>
-
             </TouchableOpacity>
 
             <FlatList
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
     viewRow: {
         flexDirection: 'row',
         marginTop: 20,
-        alignSelf: 'center'
+        marginLeft: 20,
     },
     textFill: {
         fontSize: 20,

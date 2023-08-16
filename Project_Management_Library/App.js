@@ -19,6 +19,10 @@ import AddNewLoan from './Comp/Screen/ScreenLoan/AddNewLoan';
 import ChagneInfo from './Comp/Screen/ScreenPerson/ChagneInfo';
 import ChangePassPerson from './Comp/Screen/ScreenPerson/ChangePassPerson';
 import DetailMember from './Comp/Screen/ScreenMember/DetailMember';
+import ScreenSearch from './Comp/Screen/ScreenSearch/ScreenSearch';
+import ScreenSearchType from './Comp/Screen/ScreenSearch/ScreenSearchType';
+import ScreenDeitalLoan from './Comp/Screen/ScreenLoan/ScreenDeitalLoan';
+
 
 
 
@@ -27,7 +31,7 @@ export default function App() {
 
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName='Splashscreen'>
+      <Stack.Navigator initialRouteName='TabNav'>
         <Stack.Screen name="Splashscreen" component={Splashscreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="ChangePass" component={ChangePass} options={{ headerShown: false }} />
@@ -45,6 +49,9 @@ export default function App() {
         <Stack.Screen name='ChangeInfo' component={ChagneInfo} options={{ headerShown: false }} />
         <Stack.Screen name='ChangePassPerson' component={ChangePassPerson} options={{ headerShown: false }} />
         <Stack.Screen name='DetailMember' component={DetailMember} options={{ headerShown: false }} />
+        <Stack.Screen name='ScreenSearch' component={ScreenSearch} options={{ headerShown: false }} />
+        <Stack.Screen name='ScreenSearchType' component={ScreenSearchType} options={{ headerShown: false }} />
+        <Stack.Screen name='ScreenDeitalLoan' component={ScreenDeitalLoan} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -36,6 +36,7 @@ const Login = ({ navigation }) => {
 
                             setPhone('');
                             setPassword('');
+                            console.log(AsyncStorage.getItem('userToken'));
                             navigation.navigate('TabNav');
 
                         })
@@ -72,7 +73,7 @@ const Login = ({ navigation }) => {
                 <Text style={styles.textForgotpassword} onPress={() => navigation.navigate('ChangePass')}>Quên mật khẩu</Text>
             </View>
             <View style={styles.viewButtonLogin} >
-                <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate('TabNav')}>
+                <TouchableOpacity style={styles.btnLogin} onPress={LoginApp}>
                     <Text style={{ color: 'white', fontSize: 15 }} >Đăng Nhập</Text>
                 </TouchableOpacity>
             </View>

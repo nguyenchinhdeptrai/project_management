@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Image } from 'react-native';
 
@@ -10,9 +10,8 @@ const ItemLoan = ({ item, navigation }) => {
     // Xác định màu nền dựa trên giá trị item.status
     const backgroundColor = item.status == 'yes' ? 'lightgreen' : 'tomato';
     return (
-        // <TouchableHighlight activeOpacity={0.6} underlayColor={'white'} onPress={() => { navigation.navigate('', { item: item }) }}>
 
-        <View style={[styles.container, { backgroundColor }]} >
+        <TouchableOpacity style={[styles.container, { backgroundColor }]} onPress={() => { navigation.navigate('ScreenDeitalLoan', { item: item }) }}>
             <Image source={{ uri: item.bookImage }} style={styles.img} />
             <View style={{ flexDirection: 'column', }}>
                 <Text style={styles.textNameBook}>{item.bookName}</Text>
@@ -21,8 +20,7 @@ const ItemLoan = ({ item, navigation }) => {
                 <Text>Ngày trả: {item.endDate}</Text>
                 <Text>Thủ thư: {item.userName}</Text>
             </View>
-        </View>
-        // </TouchableHighlight>
+        </TouchableOpacity>
 
     )
 }

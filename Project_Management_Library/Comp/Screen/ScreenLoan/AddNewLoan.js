@@ -170,15 +170,15 @@ const AddNewLoan = ({ route, navigation }) => {
                 <View style={styles.viewContentInfo}>
                     <View style={styles.viewContentInfo1}>
                         <Text>Tên sách </Text>
-                        <TextInput placeholder="" value={name} onChangeText={(text) => setName(text)} style={styles.textInput} />
+                        <TextInput placeholder="" value={name} onChangeText={(text) => setName(text)} style={styles.textInput} editable={false} />
                     </View>
                     <View style={styles.viewContentInfo1}>
                         <Text>Tác giả </Text>
-                        <TextInput placeholder="" value={author} onChangeText={(text) => setAuthor(text)} style={styles.textInput} />
+                        <TextInput placeholder="" value={author} onChangeText={(text) => setAuthor(text)} style={styles.textInput} editable={false} />
                     </View>
                     <View style={styles.viewContentInfo1}>
                         <Text>Thủ thư </Text>
-                        <TextInput placeholder="" value={nameThuThu} onChangeText={(text) => setName(text)} style={styles.textInput} />
+                        <TextInput placeholder="" value={nameThuThu} onChangeText={(text) => setName(text)} style={styles.textInput} editable={false} />
                     </View>
                 </View>
             </View>
@@ -286,6 +286,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#D9D9D9',
         borderRadius: 10,
         padding: 7,
+        color: 'black',
     }, viewContentInfo1: {
         marginVertical: 5,
     }, viewContent2: {
