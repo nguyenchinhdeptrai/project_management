@@ -179,7 +179,7 @@ function Home({ navigation }) {
                 <FlatList
                     data={listType}
                     horizontal={true}
-                    renderItem={({ item }) => <ItemType title={item.title} item={item} />}
+                    renderItem={({ item }) => <ItemType title={item.title} item={item} navigation={navigation} />}
                     keyExtractor={(item) => item.id}
                     style={styles.listType}
                 />

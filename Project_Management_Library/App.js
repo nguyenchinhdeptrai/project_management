@@ -31,7 +31,7 @@ export default function App() {
 
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName='TabNav'>
+      <Stack.Navigator initialRouteName='Splashscreen'>
         <Stack.Screen name="Splashscreen" component={Splashscreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="ChangePass" component={ChangePass} options={{ headerShown: false }} />
