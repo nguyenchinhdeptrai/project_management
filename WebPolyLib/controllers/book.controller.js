@@ -94,7 +94,7 @@ exports.deleteBook = async (req, res) => {
 }
 
 exports.getSeach = async (req, res) => {
-    const { searchString } = req.body;
+    const { searchString } = req.query;
     if (searchString != "") {
         let arrBook = await md.find().populate('_idType').lean();
 

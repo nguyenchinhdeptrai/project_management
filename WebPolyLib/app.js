@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const handlebarsHelpers = require('./handlebars-helpers')
 const md = require('./model/modelloandeltail'); //
 const mdUser = require('./model/modeluser');
+const mdMember = require('./model/modelmember');
 
 const app = express();
 
@@ -135,12 +136,28 @@ app.get('/home', async (req, res) => {
         //     totalPrice: totalPriceByMonth[key] || 0,
         // }));
 
+        const dataMember = await mdMember.find().lean();
+        const dataUser = await mdUser.find().lean();
 
+        let totalPrice = 0;
+        let totalLoan = data.length;
+        let totalMember = dataMember.length;
+        let totalUser = dataUser.length;
+
+        data.forEach(element => {
+            totalPrice += element.price;
+         
+        });
+        let totalPriceString = totalPrice.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}).replace("₫", "");
         res.render('home', {
             layout: "main",
             totalPriceData,
             totalLoansData,
-            dataMonth
+            dataMonth,
+            totalPriceString,
+            totalLoan,
+            totalMember,
+            totalUser
         });
     } catch (error) {
         console.error('Đã xảy ra lỗi khi lấy dữ liệu:', error);

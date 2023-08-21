@@ -75,3 +75,26 @@ exports.deleteType = async (req, res) => {
     res.redirect('/typeBook');
     return;
 }
+
+exports.getSeach = async (req, res) => {
+    const { searchString } = req.query;
+    if (searchString != "") {
+        let arrTypeBook = await md.find().lean();
+
+        let result = [];
+        for (let index = 0; index < arrTypeBook.length; index++) {
+            const element = arrTypeBook[index];
+            if (element.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1) {
+                result.push(element);
+            }
+        }
+        var newArr = result;
+        res.render('typebook/listtypebook', {
+            layout: 'main',
+            data: newArr,
+        })
+    }
+    else {
+        res.redirect('/typeBook');
+    }
+}

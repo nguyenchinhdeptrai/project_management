@@ -15,5 +15,6 @@ router.post('/deletetypebook', typeBookController.deleteType)
 
 router.post('/getIdType', typeBookController.getId)
 
+router.get('/searchTypeBook', typeBookController.getSeach)
 
 module.exports = router;

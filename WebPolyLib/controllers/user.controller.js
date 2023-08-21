@@ -89,3 +89,26 @@ exports.deleteUser = async (req, res) => {
     res.redirect('/user');
     return;
 }
+
+exports.getSeach = async (req, res) => {
+    const { searchString } = req.query;
+    if (searchString != "") {
+        let arrUser = await mduser.find().lean();
+
+        let result = [];
+        for (let index = 0; index < arrUser.length; index++) {
+            const element = arrUser[index];
+            if (element.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1) {
+                result.push(element);
+            }
+        }
+        var newArr = result;
+        res.render('user/listuser', {
+            layout: 'main',
+            data: newArr,
+        })
+    }
+    else {
+        res.redirect('/user');
+    }
+}

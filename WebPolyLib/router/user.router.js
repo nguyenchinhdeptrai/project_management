@@ -14,4 +14,6 @@ router.post('/getIdUser', userController.getId);
 router.post('/updateuser', userController.updateUser);
 router.post('/delteuser', userController.deleteUser)
 
+router.get('/searchUser', userController.getSeach)
+
 module.exports = router;

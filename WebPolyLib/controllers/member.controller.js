@@ -91,3 +91,26 @@ exports.deletemember = async (req, res) => {
     res.redirect('/member');
     return;
 }
+
+exports.getSeach = async (req, res) => {
+    const { searchString } = req.query;
+    if (searchString != "") {
+        let arrMember = await md.find().lean();
+
+        let result = [];
+        for (let index = 0; index < arrMember.length; index++) {
+            const element = arrMember[index];
+            if (element.phone.toLowerCase().indexOf(searchString.toLowerCase()) !== -1) {
+                result.push(element);
+            }
+        }
+        var newArr = result;
+        res.render('member/listmember', {
+            layout: 'main',
+            data: newArr,
+        })
+    }
+    else {
+        res.redirect('/member');
+    }
+}

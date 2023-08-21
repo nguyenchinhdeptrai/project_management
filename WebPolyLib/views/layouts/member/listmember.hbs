@@ -7,13 +7,12 @@
                         letter-spacing: 0.36px;
                         word-wrap: break-word">Danh Sách Thành Viên</Text>
     </div>
-    <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Tìm Kiếm" aria-label="Search" style="height:60px;">
+    <form class="d-flex" method="get" action="/searchMember">
+        <input class="form-control me-2" name="searchString" type="search" placeholder="Tìm Kiếm theo số điện thoại" aria-label="Search" style="height:60px;">
     </form>
     <table class="table table-hover mt-3">
         <thead>
             <tr class="text-center">
-                <th scope="col">Mã thành viên</th>
                 <th scope="col">Tên thành viên</th>
                 <th scope="col">Số điện thoại</th>
                 <th scope="col">Ảnh</th>
@@ -23,11 +22,10 @@
         <tbody>
             {{#each data}}
             <tr class="text-center">
-                <td scope="row">{{this.memberID}}</td>
-                <td>{{this.name}}</td>
+                <td scope="row">{{this.name}}</td>
                 <td>{{this.phone}}</td>
                 <td>
-                    <div class="shadow-sm p-3 rounded" style="width: 80px; margin-left: 120px;">
+                    <div class="shadow-sm p-3 rounded" style="width: 80px; margin-left: 180px;">
                         <img src="{{this.img}}" alt="" width="50px" height="50px">
                     </div>
                 </td>
